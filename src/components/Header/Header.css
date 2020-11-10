@@ -1,9 +1,12 @@
 .header {
-  border: 1px solid green;
   max-width: 1440px;
+  background: rgba(196, 196, 196, 0.01);
+  box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
   margin-left: auto;
   margin-right: auto;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .header__logo {
@@ -13,5 +16,12 @@
   font-weight: 900;
   font-size: 20px;
   line-height: 24px;
-  color: #1a1b22;
+  color: #fff;
+  margin-top: 30px;
+  margin-left: 104px;
+  margin-bottom: 26px;
+}
+
+.header__logo_dark {
+  color: #000;
 }

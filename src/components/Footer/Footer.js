@@ -14,7 +14,7 @@ function Footer() {
             <Link className="footer__link" to="/">Главная</Link>
           </li>
           <li className="footer__links">
-            <a className="footer__link" href="https://praktikum.yandex.ru" target="_blank">Яндекс.Практикум</a>
+            <a className="footer__link" href="https://praktikum.yandex.ru" target="_blank" rel="noreferrer">Яндекс.Практикум</a>
           </li>
         </ul>
         <ul className="footer__social-icons">
