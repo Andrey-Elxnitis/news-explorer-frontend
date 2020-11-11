@@ -1,16 +1,15 @@
 import React from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header.js';
 import SearchForm from '../SearchForm/SearchForm.js';
-import About from '../About/About.js'
+import Main from '../Main/Main.js';
+import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
+import SavedNews from '../SavedNews/SavedNews.js';
 import Footer from '../Footer/Footer.js';
-import Background from '../Background/Background.js';
 
-// основной компонент, который
+// основной компонент приложения
 function App() {
-
-  const { pathname } = useLocation();
 
   return (
     <div className="page">
@@ -20,11 +19,12 @@ function App() {
             <Header />
             <SearchForm />
           </div>
-          <About />
+          <Main />
         </Route>
         <Route path="/saved-news">
           <Header />
-          <About />
+          <SavedNewsHeader />
+          <SavedNews />
         </Route>
       </Switch>
       <Footer />

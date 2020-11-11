@@ -1,5 +1,4 @@
 .about {
-  border: 1px solid red;
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
@@ -7,20 +6,17 @@
 }
 
 .about__avatar {
-  border: 1px solid red;
   max-width: 464px;
   border-radius: 1000px;
   margin: 80px 56px 80px 104px;
 }
 
 .about__text {
-  border: 1px solid red;
   margin-top: 131px;
   margin-bottom: 279px;
 }
 
 .about__title {
-  border: 1px solid red;
   max-width: 496px;
   font-family: 'Roboto Slab';
   font-weight: 400;
@@ -31,7 +27,6 @@
 }
 
 .about__description {
-  border: 1px solid red;
   max-width: 600px;
   font-family: 'Roboto';
   font-weight: 400;

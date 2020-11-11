@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css'
 import Navigation from '../Navigation/Navigation.js';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 function Header() {
 
@@ -12,7 +12,7 @@ function Header() {
 
   return (
     <header className="header">
-      <h3 className={`header__logo ${headerLogoDark}`}>NewsExplorer</h3>
+      <Link to="/" className={`header__logo ${headerLogoDark}`}>NewsExplorer</Link>
       <Navigation></Navigation>
     </header>
   )

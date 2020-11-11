@@ -1,11 +1,9 @@
 .navigation {
-  border: 1px solid red;
   display: flex;
   margin-right: 104px;
 }
 
 .navigation__links {
-  border: 1px solid blue;
   list-style-type: none;
   padding-left: 0;
   margin-top: 30px;
@@ -28,6 +26,19 @@
   line-height: 24px;
   color: #fff;
   text-decoration: none;
+  padding-bottom: 25px;
+}
+
+.navigation__link:hover {
+  opacity: 0.7;
+}
+
+.navigation__link_active {
+  border-bottom: 3px solid #fff;
+}
+
+.navigation__link_active_dark {
+  border-bottom: 3px solid #000;
 }
 
 .navigation__link_dark {
@@ -57,6 +68,11 @@
   margin-left: 32px;
   align-self: center;
   color: #fff;
+  cursor: pointer;
+}
+
+.navigation__button:hover {
+  border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .navigation__button-dark {
@@ -76,6 +92,11 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
+  cursor: pointer;
+}
+
+.navigation__button-dark:hover {
+  border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .navigation__button_hidden {

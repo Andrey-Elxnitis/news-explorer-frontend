@@ -16,14 +16,17 @@ function Navigation(props) {
   // если пользователь открывает раздел сохраненные карточки, цвет ссылок меняем на черный
   const navigationLinkDark = `${pathname === '/saved-news' ? 'navigation__link_dark' : ''}`;
 
+  // взависимости, от того, какая вкаладка открыта, делаем ссылку активной (белое и черное подчеркивание)
+  const navigationLinkActive = `${pathname === '/saved-news' ? 'navigation__link_active_dark' : 'navigation__link_active'}`;
+
   return (
     <nav className="navigation">
       <ul className="navigation__links">
         <li className="navigation__links-list">
-          <NavLink className={`navigation__link ${navigationLinkDark}`} exact to="/">Главная</NavLink>
+          <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark}`} exact to="/">Главная</NavLink>
         </li>
         <li className="navigation__links-list">
-          <NavLink className={`navigation__link ${navigationLinkDark}`} to="/saved-news">Сохраненные статьи</NavLink>
+          <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark}`} to="/saved-news">Сохраненные статьи</NavLink>
         </li>
       </ul>
       <button className={buttonWhite}>Авторизоваться</button>
