@@ -70,6 +70,7 @@
   color: #fff;
   cursor: pointer;
   outline: none;
+  padding: 0;
 }
 
 .navigation__button:hover {
@@ -110,4 +111,46 @@
   height: 16px;
   margin-left: 10px;
 
+}
+
+@media screen and (max-width: 1100px) {
+  .navigation {
+    margin-right: 70px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .navigation {
+    margin-right: 40px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+  .navigation__link {
+    font-size: 16px;
+    padding-bottom: 20px;
+  }
+
+  .navigation__button {
+    width: 152px;
+    height: 40px;
+    font-size: 16px;
+    margin-top: 14px;
+    margin-left: 16px;
+    margin-bottom: 12px;
+  }
+
+  .navigation__button-dark {
+    width: 100px;
+    height: 40px;
+    font-size: 16px;
+    padding: 0;
+    margin-left: 16px;
+  }
+
+  .navigation__links {
+    margin-top: 22px;
+    margin-bottom: 0px;
+  }
 }

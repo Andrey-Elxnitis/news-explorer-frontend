@@ -14,4 +14,27 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 16px;
+  justify-content: center;
+}
+
+
+@media screen and (max-width: 1350px) {
+
+  .saved-news__box {
+    max-width: 688px;
+    grid-template-columns: repeat(auto-fit, 224px);
+    grid-gap: 8px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .saved-news__box {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  .saved-news {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
 }

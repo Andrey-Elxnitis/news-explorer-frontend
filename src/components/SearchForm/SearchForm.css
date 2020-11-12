@@ -30,6 +30,8 @@
   font-size: 18px;
   line-height: 24px;
   color: #fff;
+  margin-top: 0;
+  margin-bottom: 64px;
 }
 
 .search__box {
@@ -42,7 +44,7 @@
 .search__input {
   border-radius: 100px;
   width: 100%;
-  padding: 21px 0 21px 24px;
+  padding-left: 24px;
   border: none;
   outline: none;
 }
@@ -57,6 +59,10 @@
   padding: 0;
   border: none;
   cursor: pointer;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
 }
 
 .search__button:hover {
@@ -69,4 +75,38 @@
 
 .search__button:active {
   outline: none;
+}
+
+@media screen and (max-width: 800px) {
+
+  .search {
+    margin-top: 38px;
+    padding-bottom: 48px;
+  }
+
+  .search__title {
+    max-width: 385px;
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: 16px;
+  }
+
+  .search__about {
+    max-width: 452px;
+    margin-bottom: 48px;
+  }
+
+  .search__box {
+    max-width: 448px;
+  }
+
+  .search__button {
+    width: 160px;
+    height: 56px;
+  }
+
+  .search__form {
+    max-width: 448px;
+  }
+
 }

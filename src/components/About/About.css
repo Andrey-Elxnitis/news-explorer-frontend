@@ -7,6 +7,7 @@
 
 .about__avatar {
   max-width: 464px;
+  max-height: 464px;
   border-radius: 1000px;
   margin: 80px 56px 80px 104px;
 }
@@ -34,4 +35,40 @@
   line-height: 24px;
   color: #1a1b22;
   margin: 24px 0 0 0;
+}
+
+@media screen and (max-width: 1300px) {
+  .about__avatar {
+    width: 300px;
+    height: 300px;
+  }
+
+  .about__text {
+    margin-right: 40px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+
+  .about__text {
+    margin-top: 40px;
+    margin-bottom: 72px;
+  }
+
+  .about__title {
+    max-width: 424px;
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .about__avatar {
+    max-width: 232px;
+    max-height: 232px;
+    margin-left: 40px;
+    margin-right: 32px;
+  }
+
+  .about__description {
+    max-width: 424px;
+  }
 }
