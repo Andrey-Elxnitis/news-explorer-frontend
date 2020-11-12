@@ -1,0 +1,28 @@
+.popup__inputs {
+  width: 358px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 36px;
+  padding: 0;
+  border: none;
+}
+
+.popup__input-title {
+  max-width: 139px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #2f71e6;
+  margin-bottom: 9px;
+}
+
+.popup__input {
+  width: 358px;
+  border: none;
+  opacity: 0.2;
+  border-bottom: 1px solid #000;
+  margin-bottom: 30px;
+  padding-left: 0;
+  padding-bottom: 11px;
+}

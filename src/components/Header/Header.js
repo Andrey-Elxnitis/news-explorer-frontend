@@ -3,7 +3,7 @@ import './Header.css'
 import Navigation from '../Navigation/Navigation.js';
 import { useLocation, Link } from 'react-router-dom';
 
-function Header() {
+function Header(props) {
 
   const { pathname } = useLocation();
 
@@ -13,7 +13,10 @@ function Header() {
   return (
     <header className="header">
       <Link to="/" className={`header__logo ${headerLogoDark}`}>NewsExplorer</Link>
-      <Navigation></Navigation>
+      <Navigation
+      handleEditLoginClick={props.handleEditLoginClick}
+      >
+      </Navigation>
     </header>
   )
 }

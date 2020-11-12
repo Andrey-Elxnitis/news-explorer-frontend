@@ -69,6 +69,7 @@
   align-self: center;
   color: #fff;
   cursor: pointer;
+  outline: none;
 }
 
 .navigation__button:hover {
@@ -93,6 +94,7 @@
   font-size: 18px;
   line-height: 24px;
   cursor: pointer;
+  outline: none;
 }
 
 .navigation__button-dark:hover {

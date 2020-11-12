@@ -29,7 +29,7 @@ function Navigation(props) {
           <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark}`} to="/saved-news">Сохраненные статьи</NavLink>
         </li>
       </ul>
-      <button className={buttonWhite}>Авторизоваться</button>
+      <button onClick={props.handleEditLoginClick} className={buttonWhite}>Авторизоваться</button>
       <button className={buttonDark}>Грета
         <img className="navigation__image-exit" src={exitLogoDark} alt="Кнопка выхода из личного кабинета"></img>
         <Link className="navigation__link-dark" to="/"></Link>
