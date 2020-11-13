@@ -41,6 +41,7 @@
   position: absolute;
   top: 24px;
   right: 24px;
+  outline: none;
 }
 
 .news-card__button:hover::before {
@@ -67,6 +68,10 @@
   background-image: url(../../images/bookmark-dark.png);
 }
 
+.news-card__button:focus {
+  background-image: url(../../images/bookmark-blue.png);
+}
+
 .news-card__button-delete {
   width: 40px;
   height: 40px;
@@ -80,6 +85,7 @@
   position: absolute;
   top: 24px;
   right: 24px;
+  outline: none;
 }
 
 .news-card__button-delete:hover::before {
@@ -217,5 +223,38 @@
 
   .news-card__button:hover::before {
     width: 164px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+
+  .news-card {
+    width: 288px;
+  }
+
+  .news-card__image {
+    width: 288px;
+    height: 196px;
+  }
+
+  .news-card__date {
+    margin-top: 16px;
+  }
+
+  .news-card__title {
+    min-width: 256px;
+    margin-top: 10px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .news-card__text {
+    min-width: 256px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .news-card__source {
+    margin-top: 8px;
   }
 }

@@ -19,8 +19,11 @@ function Navigation(props) {
   // взависимости, от того, какая вкаладка открыта, делаем ссылку активной (белое и черное подчеркивание)
   const navigationLinkActive = `${pathname === '/saved-news' ? 'navigation__link_active_dark' : 'navigation__link_active'}`;
 
+  // открытие/закрытие мобильного меню
+  const openMobileMenu = `${props.isEditOpenMobile ? 'navigation_mobile' : ''}`;
+
   return (
-    <nav className="navigation">
+    <nav className={`navigation ${openMobileMenu}`}>
       <ul className="navigation__links">
         <li className="navigation__links-list">
           <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark}`} exact to="/">Главная</NavLink>

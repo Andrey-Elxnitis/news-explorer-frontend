@@ -18,9 +18,19 @@ function App() {
   const [isEditLoginPopup, setEditLoginPopup] = useState(false);
   const [isEditRegisterPopup, setEditRegisterPopup] = useState(false);
 
+  // стейт переменная для открытия мобильного меню
+  const [isEditOpenMobile, setEditOpenMobile] = useState(false);
+
+  // функция открытия мобильного меню
+  function toggleMobileMenu() {
+    console.log('я работаю')
+    isEditOpenMobile ? setEditOpenMobile(false) : setEditOpenMobile(true);
+  }
+
   // функция открытия попапа входа
   function handleEditLoginClick() {
     setEditLoginPopup(true);
+    setEditOpenMobile(false);
   }
 
   // функция открытия попапа регистрации
@@ -88,6 +98,8 @@ function App() {
             <Header
             handleEditLoginClick={handleEditLoginClick}
             handleEditRegisterClick={handleEditRegisterClick}
+            toggleMobileMenu={toggleMobileMenu}
+            isEditOpenMobile={isEditOpenMobile}
             >
             </Header>
             <SearchForm />

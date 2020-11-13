@@ -7,7 +7,7 @@ import facebookLogo from '../../images/facebook.png';
 function Footer() {
   return (
     <footer className="footer">
-      <p className="footer__copyright">&copy; Supersite, Powered by News API</p>
+      <p className="footer__copyright">&copy; 2020 Supersite, Powered by News API</p>
       <div className="footer__box">
         <ul className="footer__list">
           <li className="footer__links">

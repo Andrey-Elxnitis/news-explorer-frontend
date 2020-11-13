@@ -5,7 +5,7 @@
   height: 100%;
   display: flex;
   position: fixed;
-  z-index: 2;
+  z-index: 4;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, .5);
@@ -35,12 +35,12 @@
   height: 40px;
   position: absolute;
   z-index: 4;
-  top: -39px;
-  right: -38px;
+  top: -30px;
+  right: -30px;
   border: none;
   background: none;
   transition: all 1s ease-in-out;
-  background-image: url(../../images/Close-Icon.png);
+  background-image: url(../../images/back.png);
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
@@ -113,4 +113,26 @@
 
 .popup__click:hover {
   opacity: 0.7;
+}
+
+@media screen and (max-width: 550px) {
+
+  .popup__container {
+    width: 319px;
+  }
+
+  .popup__title {
+    margin-top: 17px;
+    margin-left: 16px;
+    margin-bottom: 22px;
+  }
+
+  .popup__button {
+    width: 288px;
+  }
+
+  .popup__close-button {
+    right: 0;
+    top: -42px;
+  }
 }

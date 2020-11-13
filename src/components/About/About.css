@@ -72,3 +72,37 @@
     max-width: 424px;
   }
 }
+
+@media screen and (max-width: 550px) {
+  .about {
+    flex-direction: column;
+  }
+
+  .about__avatar {
+    max-width: 272px;
+    max-height: 272px;
+    align-self: center;
+    margin-top: 32px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-bottom: 24px;
+  }
+
+  .about__text {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about__title {
+    max-width: 288px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .about__description {
+    max-width: 288px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}

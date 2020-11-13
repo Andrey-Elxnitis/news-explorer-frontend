@@ -26,3 +26,15 @@
   padding-left: 0;
   padding-bottom: 11px;
 }
+
+@media screen and (max-width: 550px) {
+
+  .popup__inputs {
+    width: 288px;
+    margin-left: 16px;
+  }
+
+  .popup__input {
+    width: 288px;
+  }
+}

@@ -110,3 +110,49 @@
   }
 
 }
+
+@media screen and (max-width: 550px) {
+
+  .search {
+    margin-top: 30px;
+    padding-bottom: 32px;
+  }
+
+  .search__form {
+    max-width: 288px;
+  }
+
+  .search__title {
+    max-width: 288px;
+  }
+
+  .search__about {
+    max-width: 288px;
+    margin-bottom: 122px;
+  }
+
+  .search__box {
+    max-width: 288px;
+    display: block;
+    background: none;
+    border-radius: 0px;
+  }
+
+  .search__input {
+    max-width: 270px;
+    height: 56px;
+    padding-left: 16px;
+    margin-bottom: 16px;
+  }
+
+  .search__button {
+    width: 288px;
+  }
+}
+
+@media screen and (max-width: 319px) {
+  .search__form {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
