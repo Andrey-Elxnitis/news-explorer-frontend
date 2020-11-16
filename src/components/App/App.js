@@ -13,6 +13,24 @@ import EditRegisterPopup from '../EditRegisterPopup/EditRegisterPopup.js';
 // основной компонент приложения
 function App() {
 
+  // ВАЛИДАЦИЯ ФОРМЫ
+  const [values, setValues] = useState({});
+  const [isValid, setIsValid] = useState(false);
+  const [error, setError] = useState({});
+
+  function handleChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
+    setError({ ...error, [name]: e.target.validationMessage });
+    setIsValid(e.target.closest('form').checkValidity());
+  }
+
+  function resetForm() {
+    setValues({});
+    setIsValid(false);
+    setError({});
+  }
 
   // стейт переменные для открытия попапов
   const [isEditLoginPopup, setEditLoginPopup] = useState(false);
@@ -23,7 +41,6 @@ function App() {
 
   // функция открытия мобильного меню
   function toggleMobileMenu() {
-    console.log('я работаю')
     isEditOpenMobile ? setEditOpenMobile(false) : setEditOpenMobile(true);
   }
 
@@ -43,9 +60,11 @@ function App() {
 
     if (isEditLoginPopup) {
       setEditLoginPopup(false);
+      resetForm();
     }
     if (isEditRegisterPopup) {
       setEditRegisterPopup(false);
+      resetForm();
     }
   }
 
@@ -120,6 +139,10 @@ function App() {
         isOpen={isEditLoginPopup}
         onClose={closeAllPopups}
         onClickPopup={updatePopup}
+        error={error}
+        values={values}
+        isValid={isValid}
+        handleChange={handleChange}
         >
         </EditLoginPopup>
 
@@ -127,6 +150,10 @@ function App() {
         isOpen={isEditRegisterPopup}
         onClose={closeAllPopups}
         onClickPopup={updatePopup}
+        error={error}
+        values={values}
+        isValid={isValid}
+        handleChange={handleChange}
         >
         </EditRegisterPopup>
 
