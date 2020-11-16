@@ -13,11 +13,19 @@ import EditRegisterPopup from '../EditRegisterPopup/EditRegisterPopup.js';
 // основной компонент приложения
 function App() {
 
-  // ВАЛИДАЦИЯ ФОРМЫ
+  // стейт переменные для открытия попапов
+  const [isEditLoginPopup, setEditLoginPopup] = useState(false);
+  const [isEditRegisterPopup, setEditRegisterPopup] = useState(false);
+
+  // стейт переменные для валидации формы
   const [values, setValues] = useState({});
   const [isValid, setIsValid] = useState(false);
   const [error, setError] = useState({});
 
+  // стейт переменная для открытия мобильного меню
+  const [isEditOpenMobile, setEditOpenMobile] = useState(false);
+
+  // функция отслеживает ввод данных в инпуты и отображает ошибку, если данные некорректные
   function handleChange(e) {
     const name = e.target.name;
     const value = e.target.value;
@@ -26,18 +34,12 @@ function App() {
     setIsValid(e.target.closest('form').checkValidity());
   }
 
+  // функция сбрасывает ошибки при закрытии попапа
   function resetForm() {
     setValues({});
     setIsValid(false);
     setError({});
   }
-
-  // стейт переменные для открытия попапов
-  const [isEditLoginPopup, setEditLoginPopup] = useState(false);
-  const [isEditRegisterPopup, setEditRegisterPopup] = useState(false);
-
-  // стейт переменная для открытия мобильного меню
-  const [isEditOpenMobile, setEditOpenMobile] = useState(false);
 
   // функция открытия мобильного меню
   function toggleMobileMenu() {
@@ -119,6 +121,8 @@ function App() {
             handleEditRegisterClick={handleEditRegisterClick}
             toggleMobileMenu={toggleMobileMenu}
             isEditOpenMobile={isEditOpenMobile}
+            isEditLoginPopup={isEditLoginPopup}
+            isEditRegisterPopup={isEditRegisterPopup}
             >
             </Header>
             <SearchForm />
@@ -126,7 +130,15 @@ function App() {
           <Main />
         </Route>
         <Route path="/saved-news">
-          <Header />
+          <Header
+          handleEditLoginClick={handleEditLoginClick}
+          handleEditRegisterClick={handleEditRegisterClick}
+          toggleMobileMenu={toggleMobileMenu}
+          isEditOpenMobile={isEditOpenMobile}
+          isEditLoginPopup={isEditLoginPopup}
+          isEditRegisterPopup={isEditRegisterPopup}
+          >
+          </Header>
           <SavedNewsHeader />
           <SavedNews />
         </Route>

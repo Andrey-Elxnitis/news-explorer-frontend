@@ -10,6 +10,10 @@
   outline: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.header_saved {
+  box-shadow: inset 0px -1px 0px #d1d2d6;
+}
+
 .header_mobile::before {
   content: "";
   width: 100%;
@@ -25,7 +29,6 @@
   font-weight: 900;
   font-size: 20px;
   line-height: 24px;
-  color: #fff;
   margin-top: 30px;
   margin-left: 104px;
   margin-bottom: 26px;
@@ -34,6 +37,10 @@
 
 .header__logo_dark {
   color: #000;
+}
+
+.header__logo_white {
+  color: #fff;
 }
 
 .header__logo:hover {
@@ -55,6 +62,14 @@
 
 .header__button-mobile_close {
   background-image: url(../../images/back.png);
+}
+
+.header__button-mobile_close_white {
+  background-image: url(../../images/close.png);
+}
+
+.header__button-mobile_black {
+  background-image: url(../../images/burger-menu-black.png);
 }
 
 .header__button-mobile:hover {
@@ -83,5 +98,13 @@
 
   .header__logo {
     margin-left: 16px;
+  }
+}
+
+
+@media screen and (max-width: 330px) {
+
+  .header__button-mobile_hidden {
+    display: none;
   }
 }

@@ -7,17 +7,6 @@
   padding-bottom: 62px;
 }
 
-.saved-news__box {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1237px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 16px;
-  justify-content: center;
-}
-
-
 @media screen and (max-width: 1350px) {
 
   .saved-news__box {

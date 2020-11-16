@@ -24,7 +24,6 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
-  color: #fff;
   text-decoration: none;
   padding-bottom: 25px;
 }
@@ -43,6 +42,10 @@
 
 .navigation__link_dark {
   color: #000;
+}
+
+.navigation__link_white {
+  color: #fff;
 }
 
 .navigation__link-dark {
@@ -195,5 +198,20 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 24px;
+  }
+
+  .navigation__button-dark {
+    width: 288px;
+    height: 56px;
+    border: 1px solid #fff;
+    color: #fff;
+    margin-top: 22px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+  }
+
+  .navigation__image-exit {
+    margin-left: 16px;
   }
 }

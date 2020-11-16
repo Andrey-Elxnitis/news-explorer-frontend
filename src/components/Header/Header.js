@@ -7,20 +7,41 @@ function Header(props) {
 
   const { pathname } = useLocation();
 
-  //если пользователь открывает раздел сохраненные карточки, меняем цвет логотипа на черный
-  const headerLogoDark = `${pathname === '/saved-news' ? 'header__logo_dark' : ''}`;
+  // если открываем сохраненные статьи, шапке добавляем box-shadow
+  const boxShadow = `${
+    pathname === '/saved-news' ? 'header_saved' : ''
+  }`;
 
-  // изминение кнопки открытия/закрытия мобильного меню
-  const buttonMobileMenu = `${props.isEditOpenMobile ? 'header__button-mobile_close' : ''}`;
+  // если на вкладке сохранненые статьи открываем мобильное меню, логотип меняем а белый цвет
+  const headerLogoColor =
+  `${
+    props.isEditOpenMobile
+    ?
+    pathname === '/saved-news' ? 'header__logo_white' : 'header__logo_white'
+    :
+    pathname === '/saved-news' ? 'header__logo_dark' : 'header__logo_white'
+  }`;
+
+  // изменение кнопки открытия/закрытия мобильного меню
+  const buttonMobileMenu =
+  `${
+    props.isEditOpenMobile
+    ?
+    pathname === '/saved-news' ? 'header__button-mobile_close_white' : 'header__button-mobile_close'
+    :
+    pathname === '/saved-news' ? 'header__button-mobile_black' : 'header__button-mobile'
+  }`;
 
   // добавляем затемнение фона при открытие мобильного меню
-  // изминение кнопки открытия/закрытия мобильного меню
   const mobileMenuActive = `${props.isEditOpenMobile ? 'header_mobile' : ''}`;
 
+  // на разрешение 330px скрываем кнопку в шапке, если открыт попап
+  const buttonMobileMenuHidden = `${props.isEditLoginPopup || props.isEditRegisterPopup ? 'header__button-mobile_hidden' : ''}`;
+
   return (
-    <header className={`header ${mobileMenuActive}`}>
-      <Link to="/" className={`header__logo ${headerLogoDark}`}>NewsExplorer</Link>
-      <button type="button" onClick={props.toggleMobileMenu} className={`header__button-mobile ${buttonMobileMenu}`}></button>
+    <header className={`header ${mobileMenuActive} ${boxShadow}`}>
+      <Link to="/" className={`header__logo ${headerLogoColor}`}>NewsExplorer</Link>
+      <button type="button" onClick={props.toggleMobileMenu} className={`header__button-mobile ${buttonMobileMenu} ${buttonMobileMenuHidden}`}></button>
       <Navigation
       handleEditLoginClick={props.handleEditLoginClick}
       isEditOpenMobile={props.isEditOpenMobile}

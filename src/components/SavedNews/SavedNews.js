@@ -6,13 +6,13 @@ import savedNews from '../../data/savedNews.js';
 function SavedNews(props) {
   return (
     <section className="saved-news">
-      <div className="saved-news__box">
+      <article className="news-card-list__box">
       {
           savedNews.map((article, key) => (
             <NewsCard article={article} key={key} />
           ))
         }
-      </div>
+      </article>
     </section>
   )
 }

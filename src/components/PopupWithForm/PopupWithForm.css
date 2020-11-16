@@ -141,3 +141,19 @@
     top: -42px;
   }
 }
+
+@media screen and (max-width: 330px) {
+
+  .popup {
+    align-items: baseline;
+    top: 65px;
+  }
+
+  .popup__close-button {
+    width: 24px;
+    height: 24px;
+    top: -46px;
+    right: 15px;
+    background-image: url(../../images/close.png);
+  }
+}
