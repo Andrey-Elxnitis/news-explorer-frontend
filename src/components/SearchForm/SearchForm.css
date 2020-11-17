@@ -46,6 +46,11 @@
   width: 100%;
   padding-left: 24px;
   border: none;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1a1b22;
   outline: none;
 }
 

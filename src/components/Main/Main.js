@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route, Switch, useLocation } from 'react-router-dom';
 import About from '../About/About.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
 

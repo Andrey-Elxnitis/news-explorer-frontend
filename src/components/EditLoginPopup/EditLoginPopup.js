@@ -17,6 +17,7 @@ function EditLoginPopup(props) {
       <fieldset className="popup__inputs">
         <span className="popup__input-title">Email</span>
         <input
+        autoComplete="on"
         className="popup__input"
         required
         placeholder="Введите почту"
@@ -30,7 +31,9 @@ function EditLoginPopup(props) {
         </input>
         <span className="popup__input-error">{props.error.email || ''}</span>
         <span className="popup__input-title popup__input-title_margin">Пароль</span>
-        <input className="popup__input"
+        <input
+        autoComplete="on"
+        className="popup__input"
         required
         placeholder="Введите пароль"
         type="password"

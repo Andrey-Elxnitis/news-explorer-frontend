@@ -12,6 +12,11 @@ function Header(props) {
     pathname === '/saved-news' ? 'header_saved' : ''
   }`;
 
+  // на мобильной версии на вкладке сохраненные статьи делаем залипание шапки
+  const headerSticking = `${
+    pathname === '/saved-news' ? 'header_mobile_sticking' : ''
+  }`;
+
   // если на вкладке сохранненые статьи открываем мобильное меню, логотип меняем а белый цвет
   const headerLogoColor =
   `${
@@ -36,10 +41,13 @@ function Header(props) {
   const mobileMenuActive = `${props.isEditOpenMobile ? 'header_mobile' : ''}`;
 
   // на разрешение 330px скрываем кнопку в шапке, если открыт попап
-  const buttonMobileMenuHidden = `${props.isEditLoginPopup || props.isEditRegisterPopup ? 'header__button-mobile_hidden' : ''}`;
+  const buttonMobileMenuHidden = `${
+    props.isEditLoginPopup || props.isEditRegisterPopup
+    ? 'header__button-mobile_hidden' : ''
+  }`;
 
   return (
-    <header className={`header ${mobileMenuActive} ${boxShadow}`}>
+    <header className={`header ${mobileMenuActive} ${boxShadow} ${headerSticking}`}>
       <Link to="/" className={`header__logo ${headerLogoColor}`}>NewsExplorer</Link>
       <button type="button" onClick={props.toggleMobileMenu} className={`header__button-mobile ${buttonMobileMenu} ${buttonMobileMenuHidden}`}></button>
       <Navigation

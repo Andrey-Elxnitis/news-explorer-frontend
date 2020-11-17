@@ -9,13 +9,13 @@ function NewsCardList() {
   return (
     <section className="news-card-list">
       <h2 className="news-card-list__title">Результаты поиска</h2>
-      <article className="news-card-list__box">
+      <div className="news-card-list__box">
         {
           cardResult.map((article, key) => (
             <NewsCard article={article} key={key} />
           ))
         }
-      </article>
+      </div>
       <button className="news-card-list__button">Показать еще</button>
     </section>
   )

@@ -5,6 +5,13 @@
   position: relative;
 }
 
+.news-card__link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0px 0px 16px 16px;
+}
+
 .news-card__keyword {
   display: none;
   justify-content: center;
@@ -116,6 +123,7 @@
   width: 400px;
   height: 272px;
   border-radius: 16px;
+  vertical-align: middle;
 }
 
 .news-card__date {
@@ -256,5 +264,20 @@
 
   .news-card__source {
     margin-top: 8px;
+  }
+
+  .news-card__keyword {
+    top: 16px;
+    left: 16px;
+  }
+
+  .news-card__button {
+    top: 16px;
+    right: 16px;
+  }
+
+  .news-card__button-delete {
+    top: 16px;
+    right: 16px;
   }
 }

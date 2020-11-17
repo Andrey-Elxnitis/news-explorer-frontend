@@ -111,6 +111,14 @@ function App() {
     }
   });
 
+  //функция при нажатии на главную скроллит страницу наверх
+function topScroll () {
+  if (window.pageYOffset > 0) {
+      window.scrollBy(0, -30);
+      setTimeout(topScroll, 0);
+  }
+}
+
   return (
     <div className="page">
       <Switch>
@@ -125,7 +133,7 @@ function App() {
             isEditRegisterPopup={isEditRegisterPopup}
             >
             </Header>
-            <SearchForm />
+            <SearchForm></SearchForm>
           </div>
           <Main />
         </Route>
@@ -143,7 +151,9 @@ function App() {
           <SavedNews />
         </Route>
       </Switch>
-      <Footer />
+      <Footer
+      topScroll={topScroll}
+      ></Footer>
 
       <section className="popups">
 
@@ -168,7 +178,6 @@ function App() {
         handleChange={handleChange}
         >
         </EditRegisterPopup>
-
       </section>
     </div>
   );

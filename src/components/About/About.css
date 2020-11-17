@@ -19,7 +19,7 @@
 
 .about__title {
   max-width: 496px;
-  font-family: 'Roboto Slab';
+  font-family: 'Roboto Slab', 'Arial', sans-serif;
   font-weight: 400;
   font-size: 40px;
   line-height: 46px;
@@ -29,7 +29,7 @@
 
 .about__description {
   max-width: 600px;
-  font-family: 'Roboto';
+  font-family: 'Roboto', 'Arial', sans-serif;
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
@@ -90,8 +90,10 @@
 
   .about__text {
     max-width: 320px;
+    margin-top: 0;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 80px;
   }
 
   .about__title {

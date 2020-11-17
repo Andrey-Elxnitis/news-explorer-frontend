@@ -97,7 +97,16 @@
   }
 
   .header__logo {
+    margin-top: 16px;
     margin-left: 16px;
+    margin-bottom: 16px;
+  }
+
+  .header_mobile_sticking {
+    background: #fff;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
   }
 }
 

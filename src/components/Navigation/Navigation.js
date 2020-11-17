@@ -9,13 +9,19 @@ function Navigation(props) {
   const { pathname } = useLocation();
 
   // если пользователь открывает сохраненные карточки, то показываем черную кнопку
-  const buttonDark = `${pathname === '/saved-news' ? 'navigation__button-dark' : 'navigation__button_hidden'}`;
+  const buttonDark = `${
+    pathname === '/saved-news' ? 'navigation__button-dark' : 'navigation__button_hidden'
+  }`;
 
   // если пользователь открывает сохраненные карточки, убираем белую кнопку
-  const buttonWhite = `${pathname === '/' ? 'navigation__button' : 'navigation__button_hidden'}`
+  const buttonWhite = `${
+    pathname === '/' ? 'navigation__button' : 'navigation__button_hidden'
+  }`;
 
   // если пользователь открывает раздел сохраненные карточки, цвет ссылок меняем на черный
-  const navigationLinkDark = `${pathname === '/saved-news' ? 'navigation__link_dark' : 'navigation__link_white'}`;
+  const navigationLinkDark = `${
+    pathname === '/saved-news' ? 'navigation__link_dark' : 'navigation__link_white'
+  }`;
 
   // открытие/закрытие мобильного меню
   const openMobileMenu = `${props.isEditOpenMobile ? 'navigation_mobile' : ''}`;

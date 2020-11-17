@@ -211,6 +211,10 @@
     margin-bottom: 24px;
   }
 
+  .navigation__button-dark:hover {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
   .navigation__image-exit {
     margin-left: 16px;
   }
