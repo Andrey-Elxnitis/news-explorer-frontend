@@ -1,0 +1,39 @@
+.not-found {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #f5f6f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.not-found__image {
+  width: 74px;
+  height: 74px;
+  margin-top: 86px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.not-found__title {
+  max-width: 356px;
+  font-family: 'Roboto Slab', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  text-align: center;
+  color: #1a1b22;
+  margin: 40px auto 0 auto;
+}
+
+.not-found__subtitle {
+  max-width: 356px;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  color: #b6bcbf;
+  margin: 16px auto 80px auto;
+}

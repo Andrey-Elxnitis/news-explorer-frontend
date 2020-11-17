@@ -1,0 +1,116 @@
+.news-card-list {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #f5f6f7;
+  padding-bottom: 80px;
+}
+
+.news-card-list__title {
+  max-width: 712px;
+  font-family: 'Roboto Slab', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 46px;
+  color: #1a1b22;
+  margin: 0 0 64px 104px;
+  padding-top: 80px;
+}
+
+.news-card-list__box {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1237px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 16px;
+  justify-content: center;
+}
+
+.news-card-list__button {
+  display: block;
+  width: 288px;
+  height: 64px;
+  background: #fff;
+  border-radius: 80px;
+  border: none;
+  margin: 64px auto 0 auto;
+  cursor: pointer;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #1a1b22;
+  outline: none;
+}
+
+.news-card-list__button:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 1350px) {
+
+  .news-card-list__title {
+    max-width: 336px;
+    font-size: 30px;
+    line-height: 34px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .news-card-list__box {
+    max-width: 688px;
+    grid-template-columns: repeat(auto-fit, 224px);
+    grid-gap: 8px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+
+  .news-card-list {
+    padding-bottom: 40px;
+  }
+
+  .news-card-list__title {
+    margin-left: 40px;
+    margin-bottom: 32px;
+    padding-top: 40px;
+  }
+
+  .news-card-list__box {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  .news-card-list__button {
+    width: 240px;
+    height: 56px;
+    margin-top: 32px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+
+  .news-card-list {
+    padding-bottom: 32px;
+  }
+
+  .news-card-list__title {
+    max-width: 288px;
+    font-size: 30px;
+    line-height: 34px;
+    margin-left: auto;
+    margin-bottom: 24px;
+    padding-top: 32px;
+  }
+
+  .news-card-list__box {
+    grid-template-columns: repeat(auto-fit, 288px);
+    grid-gap: 10px;
+  }
+
+  .news-card-list__button {
+    width: 288px;
+    margin-top: 15px;
+  }
+}

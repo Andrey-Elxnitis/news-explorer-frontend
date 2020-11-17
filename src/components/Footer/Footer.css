@@ -1,0 +1,146 @@
+.footer {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__copyright {
+  max-width: 433px;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #b6bcbf;
+  margin-top: 32px;
+  margin-left: 104px;
+  margin-bottom: 26px;
+}
+
+.footer__box {
+  display: flex;
+}
+
+.footer__list {
+  width: 304px;
+  padding-left: 0;
+  list-style-type: none;
+  margin-top: 32px;
+  margin-bottom: 26px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 42px;
+}
+
+.footer__link {
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  color: #1a1b22;
+  text-decoration: none;
+}
+
+.footer__link:hover {
+  transition: opacity 0.3s ease;
+  opacity: 0.5;
+}
+
+.footer__social-icons {
+  width: 68px;
+  padding-left: 0;
+  list-style-type: none;
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 104px;
+  margin-bottom: 26px;
+}
+
+.footer__image-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.footer__image-icon:hover {
+  transition: opacity 0.3s ease;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 950px) {
+
+  .footer__copyright {
+    max-width: 300px;
+    margin-top: 24px;
+    margin-left: 40px;
+    margin-bottom: 18px;
+  }
+
+  .footer__list {
+    width: 264px;
+    margin-top: 21px;
+    margin-right: 25px;
+    margin-bottom: 21px;
+  }
+
+  .footer__social-icons {
+    width: 66px;
+    margin-top: 21px;
+    margin-right: 40px;
+    margin-bottom: 21px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .footer {
+    flex-direction: column;
+  }
+
+  .footer__copyright {
+    align-self: center;
+    margin-left: 0;
+  }
+
+  .footer__box {
+    align-self: center;
+  }
+
+  .footer__social-icons {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 550px) {
+
+  .footer__copyright {
+    width: 288px;
+    order: 1;
+    text-align: center;
+    margin-top: 40px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .footer__list {
+    width: 200px;
+    height: 72px;
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .footer__box {
+    width: 288px;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .footer__social-icons {
+    margin: 0;
+  }
+}
