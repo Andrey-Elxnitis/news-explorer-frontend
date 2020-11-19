@@ -2,10 +2,13 @@ import React from 'react'
 import About from '../About/About.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js';
 
-function Main() {
+function Main(props) {
   return (
     <main className="content">
-      <NewsCardList />
+      <NewsCardList
+      articles={props.articles}
+      >
+      </NewsCardList>
       <About />
     </main>
   )

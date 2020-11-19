@@ -9,9 +9,22 @@ import SavedNews from '../SavedNews/SavedNews.js';
 import Footer from '../Footer/Footer.js';
 import EditLoginPopup from '../EditLoginPopup/EditLoginPopup.js';
 import EditRegisterPopup from '../EditRegisterPopup/EditRegisterPopup.js';
+import { searchNews } from '../../utils/NewsApi';
+import Preloader from '../Preloader/Preloader.js';
+import NotFoud from '../NotFound/NotFound.js';
 
 // основной компонент приложения
 function App() {
+
+  // стейт переменные для новостных статей
+  const [articles, setArticles] = useState([]);
+
+
+  // стейт переменная для отображения прелоудера
+  const [isEditPreloader, setIsEditPreloader] = useState(false);
+
+  // стейт переменная для отображения страницы "Ничего не найдено"
+  const [isEditNotFound, setIsEditNotFound] = useState(false);
 
   // стейт переменные для открытия попапов
   const [isEditLoginPopup, setEditLoginPopup] = useState(false);
@@ -24,6 +37,38 @@ function App() {
 
   // стейт переменная для открытия мобильного меню
   const [isEditOpenMobile, setEditOpenMobile] = useState(false);
+
+
+  // функция обрабатывает поиск новостей
+  function searchNewsClick(keyword) {
+
+    if (!keyword) {
+      // ТУТ НАДО БУДЕТ СДЕЛАТЬ, ЧТОБЫ ОШИБКА ВЫВОДИЛАСЬ
+      console.log('нужно ввести слова')
+    }
+
+    // показываем прелоадер
+    setIsEditPreloader(true)
+
+    searchNews(keyword)
+      .then((data) => {
+
+          // записываем статьи в локальное хранилище
+          localStorage.setItem('articles', JSON.stringify(data.articles));
+
+          // обновляем стейт
+          setArticles(data.articles);
+
+          console.log(articles)
+          console.log(data.articles);
+
+        if (data.articles.length === 0) {
+          setIsEditNotFound(true)
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsEditPreloader(false));
+  }
 
   // функция отслеживает ввод данных в инпуты и отображает ошибку, если данные некорректные
   function handleChange(e) {
@@ -133,9 +178,23 @@ function topScroll () {
             isEditRegisterPopup={isEditRegisterPopup}
             >
             </Header>
-            <SearchForm></SearchForm>
+            <SearchForm
+            handleSearchNews={searchNewsClick}
+            >
+            </SearchForm>
           </div>
-          <Main />
+          <Preloader
+            isOpen={isEditPreloader}
+            >
+            </Preloader>
+            <NotFoud
+            isOpen={isEditNotFound}
+            >
+            </NotFoud>
+          <Main
+          articles={articles}
+          >
+          </Main>
         </Route>
         <Route path="/saved-news">
           <Header

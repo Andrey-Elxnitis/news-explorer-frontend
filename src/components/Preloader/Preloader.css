@@ -2,9 +2,13 @@
   max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
+}
+
+.preloader_active {
+  display: flex;
 }
 
 .preloader__circle {
