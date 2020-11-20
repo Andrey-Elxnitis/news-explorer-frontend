@@ -15,8 +15,7 @@ export function searchNews(keyword) {
   date.setDate(date.getDate() - 7);
   const finishDate = date.toISOString().slice(0, 10);
 
-
-  return fetch(`${URL_NEWS}country=ru&g=${keyword}&apiKey=${KEY_API_NEWS}&from=${finishDate}&to=${startDate}&pageSize=100`, {
+  return fetch(`${URL_NEWS}q=${keyword}&apiKey=${KEY_API_NEWS}&from=${finishDate}&to=${startDate}&sortBy=publishedAt&pageSize=100`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
@@ -27,8 +26,5 @@ export function searchNews(keyword) {
         return res.json();
       }
       return Promise.reject(`Произошла ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err.status);
     });
 }

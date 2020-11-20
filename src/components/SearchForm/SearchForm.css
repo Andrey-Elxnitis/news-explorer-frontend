@@ -38,6 +38,7 @@
   max-width: 608px;
   background: #fff;
   border-radius: 100px;
+  position: relative;
   display: flex;
 }
 
@@ -52,6 +53,22 @@
   line-height: 22px;
   color: #1a1b22;
   outline: none;
+}
+
+.search__input-error {
+  position: absolute;
+  top: -25px;
+  left: 20px;
+  color: rgb(255, 6, 6);
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  text-rendering: optimizeLegibility;
+  display: none;
+}
+
+.search__input-error_active {
+  display: block;
 }
 
 .search__button {

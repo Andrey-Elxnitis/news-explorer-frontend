@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header.js';
 import SearchForm from '../SearchForm/SearchForm.js';
@@ -7,17 +7,23 @@ import Main from '../Main/Main.js';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import Footer from '../Footer/Footer.js';
-import EditLoginPopup from '../EditLoginPopup/EditLoginPopup.js';
-import EditRegisterPopup from '../EditRegisterPopup/EditRegisterPopup.js';
+import Login from '../Login/Login.js';
+import Register from '../Register/Register.js';
+import EditInfoPopup from '../EditInfoPopup/EditInfoPopup.js';
 import { searchNews } from '../../utils/NewsApi';
 import Preloader from '../Preloader/Preloader.js';
 import NotFoud from '../NotFound/NotFound.js';
+import { register, authorize, getInfo } from '../../utils/MainApi.js';
 
 // основной компонент приложения
 function App() {
 
+  // история для переброски пользователя
+  const history = useHistory();
+
   // стейт переменные для новостных статей
   const [articles, setArticles] = useState([]);
+  const [searchError, setSearchError] = useState(false);
 
 
   // стейт переменная для отображения прелоудера
@@ -29,6 +35,7 @@ function App() {
   // стейт переменные для открытия попапов
   const [isEditLoginPopup, setEditLoginPopup] = useState(false);
   const [isEditRegisterPopup, setEditRegisterPopup] = useState(false);
+  const [isEditInfoPopup, setIsEditInfoPopup] = useState(false);
 
   // стейт переменные для валидации формы
   const [values, setValues] = useState({});
@@ -38,14 +45,33 @@ function App() {
   // стейт переменная для открытия мобильного меню
   const [isEditOpenMobile, setEditOpenMobile] = useState(false);
 
+  // стейт переменная для показа ошибки при регистрации пользователя
+  const [textErrorForm, setTextErrorForm] = useState('');
+
+  // состояние пользователя авторизации
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
+
+  // функция проверки токена
+  function getToken() {
+
+    const jwt = localStorage.getItem('jwt');
+
+    if (jwt) {
+      setLoggedIn(true)
+      history.push('/')
+
+      // НУЖНО БУДЕТ ЗАПРОСИТЬ ДАННЫЕ О ПОЛЬЗОВАТЕЛЕ И СТАТЬИ ИЗ ЛОКАЛЬНОГО ХРАНИЛИЩА
+    }
+  }
+
+  // проверяем наличие токена в локальном хранилище
+  React.useEffect(() => {
+    getToken();
+  },[]);
 
   // функция обрабатывает поиск новостей
   function searchNewsClick(keyword) {
-
-    if (!keyword) {
-      // ТУТ НАДО БУДЕТ СДЕЛАТЬ, ЧТОБЫ ОШИБКА ВЫВОДИЛАСЬ
-      console.log('нужно ввести слова')
-    }
 
     // показываем прелоадер
     setIsEditPreloader(true)
@@ -66,7 +92,11 @@ function App() {
           setIsEditNotFound(true)
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err.status);
+        setSearchError(true);
+        setIsEditNotFound(true);
+      })
       .finally(() => setIsEditPreloader(false));
   }
 
@@ -113,6 +143,9 @@ function App() {
       setEditRegisterPopup(false);
       resetForm();
     }
+    if (isEditInfoPopup) {
+      setIsEditInfoPopup(false);
+    }
   }
 
   // функция отвечает за переключение попапов
@@ -156,13 +189,59 @@ function App() {
     }
   });
 
+  // функция отвечает за регистрацию пользователя
+  function registerUser(email, password, name) {
+    register(email, password, name)
+      .then((res) => {
+        if (res) {
+          closeAllPopups();
+          setIsEditInfoPopup(true);
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        setTextErrorForm(err.message);
+        console.log(err);
+      });
+  }
+
+  // функция отвечает за авторизацию пользователя
+  function entranceLogin(email, password) {
+    authorize(email, password)
+    .then((res) => {
+      localStorage.setItem('jwt', res.token);
+
+      if (res) {
+        getInfo(res.token)
+          .then((data) => {
+            // записываем данные пользователя в локальное ранилищех
+            localStorage.setItem('user', JSON.stringify(data));
+
+            //нужно будет передать данные пользователя в currentUser
+
+            // авторизуем пользователя
+            setLoggedIn(true)
+            closeAllPopups();
+            history.push('/');
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    })
+    .catch((err) => {
+      setError(false)
+      console.log(err);
+    });
+  }
+
   //функция при нажатии на главную скроллит страницу наверх
-function topScroll () {
-  if (window.pageYOffset > 0) {
+  function topScroll () {
+    if (window.pageYOffset > 0) {
       window.scrollBy(0, -30);
       setTimeout(topScroll, 0);
+    }
   }
-}
 
   return (
     <div className="page">
@@ -189,6 +268,7 @@ function topScroll () {
             </Preloader>
             <NotFoud
             isOpen={isEditNotFound}
+            searchError={searchError}
             >
             </NotFoud>
           <Main
@@ -216,7 +296,7 @@ function topScroll () {
 
       <section className="popups">
 
-        <EditLoginPopup
+        <Login
         isOpen={isEditLoginPopup}
         onClose={closeAllPopups}
         onClickPopup={updatePopup}
@@ -224,10 +304,11 @@ function topScroll () {
         values={values}
         isValid={isValid}
         handleChange={handleChange}
+        authorize={entranceLogin}
         >
-        </EditLoginPopup>
+        </Login>
 
-        <EditRegisterPopup
+        <Register
         isOpen={isEditRegisterPopup}
         onClose={closeAllPopups}
         onClickPopup={updatePopup}
@@ -235,8 +316,16 @@ function topScroll () {
         values={values}
         isValid={isValid}
         handleChange={handleChange}
+        textErrorForm={textErrorForm}
+        registerUser={registerUser}
         >
-        </EditRegisterPopup>
+        </Register>
+
+        <EditInfoPopup
+        isOpen={isEditInfoPopup}
+        onClose={closeAllPopups}
+        >
+        </EditInfoPopup>
       </section>
     </div>
   );

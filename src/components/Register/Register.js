@@ -1,7 +1,15 @@
 import React from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
 
-function EditRegisterPopup(props) {
+function Register(props) {
+
+  // функция отправки данных для регистрации пользователя
+  function submitRegister(e) {
+    e.preventDefault();
+    props.registerUser(props.values.email, props.values.password, props.values.name)
+}
+
+
   return (
     <PopupWithForm
       name="register"
@@ -12,6 +20,8 @@ function EditRegisterPopup(props) {
       clickButtonText="Войти"
       onClickPopup={props.onClickPopup}
       isValid={props.isValid}
+      onsubmit={submitRegister}
+      textErrorForm={props.textErrorForm}
     >
       <fieldset className="popup__inputs">
         <span className="popup__input-title">Email</span>
@@ -24,7 +34,7 @@ function EditRegisterPopup(props) {
         name="email"
         minLength="2"
         maxLength="60"
-        value={props.values.password || ''}
+        value={props.values.email || ''}
         onChange={props.handleChange}
         >
         </input>
@@ -37,7 +47,7 @@ function EditRegisterPopup(props) {
         placeholder="Введите пароль"
         type="password"
         name="password"
-        minLength="8"
+        minLength="10"
         maxLength="60"
         value={props.values.password || ''}
         onChange={props.handleChange}
@@ -62,4 +72,4 @@ function EditRegisterPopup(props) {
   )
 }
 
-export default EditRegisterPopup;
+export default Register;

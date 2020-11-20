@@ -1,6 +1,7 @@
 import React from 'react'
 import './NewsCard.css';
 import { useLocation } from 'react-router-dom';
+import notImage from '../../images/no_foto.jpg';
 
 function NewsCard(props) {
 
@@ -45,13 +46,11 @@ function NewsCard(props) {
     return newDate;
   }
 
-  console.log(props.article.title)
-
   return (
     <article className="news-card">
       <p className={keyword}>{/* здесь будет ключевое слово */}</p>
       <button className={button}></button>
-      <img className="news-card__image" src={props.article.urlToImage} alt={props.article.title}></img>
+      <img className="news-card__image" src={props.article.urlToImage ? props.article.urlToImage : notImage} alt={props.article.title}></img>
       <a className="news-card__link" href={props.article.url} target="_blank" rel="noreferrer">
       <p className="news-card__date">{newDate(props.article.publishedAt)}</p>
       <h2 className="news-card__title">{props.article.title}</h2>

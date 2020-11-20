@@ -4,9 +4,11 @@ import NewsCard from '../NewsCard/NewsCard.js';
 
 function NewsCardList(props) {
 
-
   // стейт переменная для отрисовки статей
   const [newsArticles, setNewsArticles] = useState([]);
+
+  // стейт переменная для скрытия кнопки "Показать еще"
+  const [activeButton, setActiveButton] = useState(true)
 
   React.useEffect(() => {
     props.articles && setNewsArticles(props.articles.slice(0, 3));
@@ -15,12 +17,17 @@ function NewsCardList(props) {
   // при нажатии на кнопку показать еще, загружаем три статьи
   function addArticle() {
     setNewsArticles(props.articles.slice(0, newsArticles.length + 3));
+
+    // скрываем кнопку, если все статьи загрузили
+    if (newsArticles.length >= props.articles.length - 3) {
+      setActiveButton(false);
+    }
   }
 
-
-  // так как статьи мы пока не получаем с сервера, я сделал массив с данными для отрисовки статей
   return (
-    <section className="news-card-list">
+    newsArticles.length > 0
+      ?
+      <section className="news-card-list">
       <h2 className="news-card-list__title">Результаты поиска</h2>
       <div className="news-card-list__box">
          {
@@ -31,10 +38,10 @@ function NewsCardList(props) {
           />
         ))
         }
-
       </div>
-      <button onClick={addArticle} className="news-card-list__button">Показать еще</button>
-    </section>
+      <button onClick={addArticle} className={`news-card-list__button ${activeButton ? '' : 'news-card-list__button_disabled'}`}>Показать еще</button>
+      </section>
+      : ''
   )
 }
 

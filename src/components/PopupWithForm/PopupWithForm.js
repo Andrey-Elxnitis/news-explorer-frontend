@@ -10,11 +10,11 @@ function PopupWithForm(props) {
 
   return (
     <div className={`popup popup_type_${props.name} ${props.isOpen && 'popup_active'}`}>
-      <form className={`popup__container popup__container_type_${props.name}`}>
+      <form onSubmit={props.onsubmit} className={`popup__container popup__container_type_${props.name}`}>
         <button onClick={props.onClose} type="button" className="popup__close-button"></button>
         <h2 className="popup__title">{props.title}</h2>
         {props.children}
-        <span className="popup__error-register">Такой пользователь уже есть</span>
+        <span className="popup__error-register">{props.textErrorForm}</span>
         <button type="submit" className={popupButton}>{props.buttonText}</button>
         <p className="popup__text">или <span className="popup__click" onClick={props.onClickPopup}>{props.clickButtonText}</span></p>
       </form>

@@ -1,8 +1,15 @@
 import React from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
-import './EditLoginPopup.css';
+import './Login.css';
 
-function EditLoginPopup(props) {
+function Login(props) {
+
+  // функция отправки данных для регистрации пользователя
+  function submitAuthorize(e) {
+    e.preventDefault();
+    props.authorize(props.email, props.password);
+  }
+
   return (
     <PopupWithForm
       name="login"
@@ -13,6 +20,7 @@ function EditLoginPopup(props) {
       clickButtonText="Зарегистрироваться"
       onClickPopup={props.onClickPopup}
       isValid={props.isValid}
+      onsubmit={submitAuthorize}
     >
       <fieldset className="popup__inputs">
         <span className="popup__input-title">Email</span>
@@ -50,4 +58,4 @@ function EditLoginPopup(props) {
   )
 }
 
-export default EditLoginPopup;
+export default Login;

@@ -6,13 +6,17 @@ function SearchForm(props) {
   // стейт переменная отслеживает пустой инпут
   const [keyword, setKeyword] = useState('');
 
+  const[inputError, setInputError] = useState(false)
+
   function submitForm(e) {
 
     e.preventDefault();
     if (keyword === '') {
       // показываем ошибку
-      console.log('нужно ввести слово');
-    } else {
+      setInputError(true);
+    }
+    else if (keyword !== '') {
+      setInputError(false)
       props.handleSearchNews(keyword);
     }
   }
@@ -30,6 +34,7 @@ function SearchForm(props) {
         onChange={ e => setKeyword(e.target.value)}
         >
         </input>
+        <span className={`search__input-error ${inputError ? 'search__input-error_active' : ''}`}>Введите ключевое слово</span>
         <button className="search__button">Искать</button>
       </div>
     </form>
