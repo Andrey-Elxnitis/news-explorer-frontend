@@ -37,6 +37,15 @@ function Navigation(props) {
     pathname === '/saved-news' ? 'navigation__link_active_dark' : 'navigation__link_active' : ''
   }`;
 
+  const textButton = `
+  ${
+    props.loggedIn
+    ?
+    `${props.currentUser.name}`
+    :
+    `Авторизоваться`
+  }`;
+
   return (
     <nav className={`navigation ${openMobileMenu}`}>
       <ul className="navigation__links">
@@ -44,10 +53,12 @@ function Navigation(props) {
           <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}`} exact to="/">Главная</NavLink>
         </li>
         <li className="navigation__links-list">
-          <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}`} to="/saved-news">Сохраненные статьи</NavLink>
+          <NavLink activeClassName={navigationLinkActive} className={`${props.loggedIn ? `navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}` : 'navigation__link_disable'}`} to="/saved-news">Сохраненные статьи</NavLink>
         </li>
       </ul>
-      <button onClick={props.handleEditLoginClick} className={buttonWhite}>Авторизоваться</button>
+      <button onClick={props.loggedIn ? props.exitAuth : props.handleEditLoginClick} className={buttonWhite}>{textButton}
+      {props.loggedIn && <img className="navigation__image-exit" src={`${pathname === '/saved-news' ? exitLogoDark : exitLogoWhite} ${props.isEditOpenMobile ? exitLogoWhite : ''}`} alt="Кнопка выхода из личного кабинета"></img>}
+      </button>
       <button className={buttonDark}>Грета
         <img className="navigation__image-exit" src={props.isEditOpenMobile ? exitLogoWhite : exitLogoDark} alt="Кнопка выхода из личного кабинета"></img>
         <Link className="navigation__link-dark" to="/"></Link>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header.js';
 import SearchForm from '../SearchForm/SearchForm.js';
@@ -14,12 +14,19 @@ import { searchNews } from '../../utils/NewsApi';
 import Preloader from '../Preloader/Preloader.js';
 import NotFoud from '../NotFound/NotFound.js';
 import { register, authorize, getInfo } from '../../utils/MainApi.js';
+import { CurrentUserContext } from '../../context/CurrentUserContex.js';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 
 // основной компонент приложения
 function App() {
 
   // история для переброски пользователя
   const history = useHistory();
+
+  const { pathname } = useLocation();
+
+  //стейт переменная принимает данные пользователя
+  const [currentUser, setCurrenUser] = useState({});
 
   // стейт переменные для новостных статей
   const [articles, setArticles] = useState([]);
@@ -51,6 +58,8 @@ function App() {
   // состояние пользователя авторизации
   const [loggedIn, setLoggedIn] = React.useState(false);
 
+  console.log(loggedIn)
+
 
   // функция проверки токена
   function getToken() {
@@ -60,8 +69,7 @@ function App() {
     if (jwt) {
       setLoggedIn(true)
       history.push('/')
-
-      // НУЖНО БУДЕТ ЗАПРОСИТЬ ДАННЫЕ О ПОЛЬЗОВАТЕЛЕ И СТАТЬИ ИЗ ЛОКАЛЬНОГО ХРАНИЛИЩА
+      setCurrenUser(JSON.parse(localStorage.getItem('user')));
     }
   }
 
@@ -216,9 +224,7 @@ function App() {
           .then((data) => {
             // записываем данные пользователя в локальное ранилищех
             localStorage.setItem('user', JSON.stringify(data));
-
-            //нужно будет передать данные пользователя в currentUser
-
+            setCurrenUser(data);
             // авторизуем пользователя
             setLoggedIn(true)
             closeAllPopups();
@@ -235,6 +241,14 @@ function App() {
     });
   }
 
+  // функция отвечает за выход пользователя из приложения
+  function exitAuth() {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('user');
+    setLoggedIn(false);
+    history.push('/');
+  }
+
   //функция при нажатии на главную скроллит страницу наверх
   function topScroll () {
     if (window.pageYOffset > 0) {
@@ -245,24 +259,30 @@ function App() {
 
   return (
     <div className="page">
+      <CurrentUserContext.Provider value={currentUser}>
       <Switch>
-        <Route exact path="/">
-          <div className="background">
-            <Header
-            handleEditLoginClick={handleEditLoginClick}
-            handleEditRegisterClick={handleEditRegisterClick}
-            toggleMobileMenu={toggleMobileMenu}
-            isEditOpenMobile={isEditOpenMobile}
-            isEditLoginPopup={isEditLoginPopup}
-            isEditRegisterPopup={isEditRegisterPopup}
-            >
-            </Header>
-            <SearchForm
-            handleSearchNews={searchNewsClick}
-            >
-            </SearchForm>
-          </div>
-          <Preloader
+        {pathname === '/' ? (
+
+          <Route exact path="/">
+            <div className="background">
+              <Header
+              handleEditLoginClick={handleEditLoginClick}
+              handleEditRegisterClick={handleEditRegisterClick}
+              toggleMobileMenu={toggleMobileMenu}
+              isEditOpenMobile={isEditOpenMobile}
+              isEditLoginPopup={isEditLoginPopup}
+              isEditRegisterPopup={isEditRegisterPopup}
+              loggedIn={loggedIn}
+              currentUser={currentUser}
+              exitAuth={exitAuth}
+              >
+              </Header>
+              <SearchForm
+              handleSearchNews={searchNewsClick}
+              >
+              </SearchForm>
+            </div>
+            <Preloader
             isOpen={isEditPreloader}
             >
             </Preloader>
@@ -271,12 +291,25 @@ function App() {
             searchError={searchError}
             >
             </NotFoud>
-          <Main
-          articles={articles}
+            <Main
+            articles={articles}
+            >
+            </Main>
+          </Route>
+        ) : (
+
+
+          <ProtectedRoute path="/saved-news"
+          loggedIn={loggedIn}
+          component={SavedNews}
+          handleEditRegisterClick={handleEditRegisterClick}
           >
-          </Main>
-        </Route>
-        <Route path="/saved-news">
+          </ProtectedRoute>
+        )
+        }
+
+
+      {/*  <Route exact path="/saved-news">
           <Header
           handleEditLoginClick={handleEditLoginClick}
           handleEditRegisterClick={handleEditRegisterClick}
@@ -288,7 +321,10 @@ function App() {
           </Header>
           <SavedNewsHeader />
           <SavedNews />
-        </Route>
+      </Route>  */}
+
+
+
       </Switch>
       <Footer
       topScroll={topScroll}
@@ -327,6 +363,7 @@ function App() {
         >
         </EditInfoPopup>
       </section>
+      </CurrentUserContext.Provider>
     </div>
   );
 }

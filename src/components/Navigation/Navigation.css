@@ -28,6 +28,10 @@
   padding-bottom: 25px;
 }
 
+.navigation__link_disable {
+  display: none;
+}
+
 .navigation__link:hover {
   opacity: 0.7;
 }

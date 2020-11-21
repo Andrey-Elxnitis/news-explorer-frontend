@@ -7,7 +7,7 @@ function Login(props) {
   // функция отправки данных для регистрации пользователя
   function submitAuthorize(e) {
     e.preventDefault();
-    props.authorize(props.email, props.password);
+    props.authorize(props.values.email, props.values.password);
   }
 
   return (
@@ -46,7 +46,7 @@ function Login(props) {
         placeholder="Введите пароль"
         type="password"
         name="password"
-        minLength="8"
+        minLength="10"
         maxLength="60"
         value={props.values.password || ''}
         onChange={props.handleChange}

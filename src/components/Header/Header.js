@@ -53,6 +53,9 @@ function Header(props) {
       <Navigation
       handleEditLoginClick={props.handleEditLoginClick}
       isEditOpenMobile={props.isEditOpenMobile}
+      loggedIn={props.loggedIn}
+      currentUser={props.currentUser}
+      exitAuth={props.exitAuth}
       >
       </Navigation>
     </header>
