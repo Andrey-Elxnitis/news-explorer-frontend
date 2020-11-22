@@ -68,3 +68,59 @@ export const getInfo = (token) => {
         return Promise.reject(`Ошибка: ${err.status}`);
     });
   };
+
+// запрашиваем сохраненные статьи
+export function getMyArticles() {
+  return fetch(`${URL_API}/articles`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    }
+  })
+    .then((res) => {
+      return res.json();
+    })
+}
+
+// сохраняем статью в бд
+export function createArticle(article, keyword) {
+  const {
+    title,
+    description,
+    publishedAt,
+    source,
+    url,
+    urlToImage,
+  } = article
+
+  return fetch(`${URL_API}/articles`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+    body: JSON.stringify({
+      keyword: keyword,
+      title,
+      text: description,
+      date: publishedAt,
+      source: source.name,
+      link: url,
+      image: urlToImage
+    })
+  })
+    .then((res) => {
+      return res.json();
+    })
+}
+
+export function deleteArticle(article) {
+  return fetch(`${URL_API}/articles/${article._id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+    },
+  })
+}

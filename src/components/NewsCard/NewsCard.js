@@ -46,16 +46,20 @@ function NewsCard(props) {
     return newDate;
   }
 
+  function buttonClick() {
+    props.updateMyArticles(props.article, props.keyword, props.myArticle);
+  }
+
   return (
     <article className="news-card">
-      <p className={keyword}>{/* здесь будет ключевое слово */}</p>
-      <button className={button}></button>
-      <img className="news-card__image" src={props.article.urlToImage ? props.article.urlToImage : notImage} alt={props.article.title}></img>
-      <a className="news-card__link" href={props.article.url} target="_blank" rel="noreferrer">
-      <p className="news-card__date">{newDate(props.article.publishedAt)}</p>
-      <h2 className="news-card__title">{props.article.title}</h2>
-      <p className="news-card__text">{props.article.description}</p>
-      <p className="news-card__source">{props.article.source.name}</p>
+      <p className={keyword}>{props.keyword}</p>
+      <button onClick={buttonClick} className={button}></button>
+      <img className="news-card__image" src={props.image ? props.image : notImage} alt={props.title}></img>
+      <a className="news-card__link" href={props.link} target="_blank" rel="noreferrer">
+      <p className="news-card__date">{newDate(props.date)}</p>
+      <h2 className="news-card__title">{props.title}</h2>
+      <p className="news-card__text">{props.text}</p>
+      <p className="news-card__source">{props.source}</p>
       </a>
     </article>
   )

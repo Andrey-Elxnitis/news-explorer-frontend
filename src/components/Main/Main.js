@@ -7,6 +7,8 @@ function Main(props) {
     <main className="content">
       <NewsCardList
       articles={props.articles}
+      updateMyArticles={props.updateMyArticles}
+      keyword={props.keyword}
       >
       </NewsCardList>
       <About />

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Route, Switch, useHistory, Redirect, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header.js';
 import SearchForm from '../SearchForm/SearchForm.js';
 import Main from '../Main/Main.js';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import Footer from '../Footer/Footer.js';
 import Login from '../Login/Login.js';
@@ -13,7 +12,14 @@ import EditInfoPopup from '../EditInfoPopup/EditInfoPopup.js';
 import { searchNews } from '../../utils/NewsApi';
 import Preloader from '../Preloader/Preloader.js';
 import NotFoud from '../NotFound/NotFound.js';
-import { register, authorize, getInfo } from '../../utils/MainApi.js';
+import {
+  register,
+  authorize,
+  getInfo,
+  getMyArticles,
+  createArticle,
+  deleteArticle
+} from '../../utils/MainApi.js';
 import { CurrentUserContext } from '../../context/CurrentUserContex.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 
@@ -23,15 +29,15 @@ function App() {
   // история для переброски пользователя
   const history = useHistory();
 
-  const { pathname } = useLocation();
-
   //стейт переменная принимает данные пользователя
   const [currentUser, setCurrenUser] = useState({});
 
   // стейт переменные для новостных статей
   const [articles, setArticles] = useState([]);
   const [searchError, setSearchError] = useState(false);
-
+  const [myArticles, setMyArticles] = useState([]);
+  const [lengthMyArticles, setLengthMyArticles] = useState(0);
+  const [keyword, setKeyword] = useState('');
 
   // стейт переменная для отображения прелоудера
   const [isEditPreloader, setIsEditPreloader] = useState(false);
@@ -58,9 +64,6 @@ function App() {
   // состояние пользователя авторизации
   const [loggedIn, setLoggedIn] = React.useState(false);
 
-  console.log(loggedIn)
-
-
   // функция проверки токена
   function getToken() {
 
@@ -70,6 +73,7 @@ function App() {
       setLoggedIn(true)
       history.push('/')
       setCurrenUser(JSON.parse(localStorage.getItem('user')));
+      getMySaveArticles();
     }
   }
 
@@ -92,9 +96,7 @@ function App() {
 
           // обновляем стейт
           setArticles(data.articles);
-
-          console.log(articles)
-          console.log(data.articles);
+          setKeyword(keyword);
 
         if (data.articles.length === 0) {
           setIsEditNotFound(true)
@@ -257,81 +259,135 @@ function App() {
     }
   }
 
+  // запрашиваем сохраненные карточки
+  function getMySaveArticles() {
+    getMyArticles()
+      .then((res) => {
+        if (res) {
+          setMyArticles(res);
+          setLengthMyArticles(res.length);
+          setKeyword(res.keyword)
+        } else {
+          setMyArticles([]);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  // сохраняем статью
+  function saveArticle(article, keyword) {
+    if (loggedIn) {
+      createArticle(article, keyword)
+        .then((data) => {
+          setMyArticles([...myArticles, data.article]);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+  }
+
+  // удаляем статью
+  function deleteMyArticle(article) {
+    deleteArticle(article)
+      .then((data) => {
+        const myArticleArray = myArticles.filter((i) => (i._id !== article._id));
+        setMyArticles(myArticleArray);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  // определяем какая статья, и либо ее сохраняем, либо удаляем
+  function updateMyArticles(article, keyword, myArticle) {
+    console.log(myArticle)
+    const mySavedArticle = myArticles.find((i) => {
+      console.log(i)
+      return i.title === myArticle.title && i.text === myArticle.text;
+    });
+
+    if (mySavedArticle) {
+      deleteMyArticle(mySavedArticle);
+    } else {
+      saveArticle(article, keyword);
+    }
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
       <Switch>
-        {pathname === '/' ? (
-
-          <Route exact path="/">
-            <div className="background">
-              <Header
-              handleEditLoginClick={handleEditLoginClick}
-              handleEditRegisterClick={handleEditRegisterClick}
-              toggleMobileMenu={toggleMobileMenu}
-              isEditOpenMobile={isEditOpenMobile}
-              isEditLoginPopup={isEditLoginPopup}
-              isEditRegisterPopup={isEditRegisterPopup}
-              loggedIn={loggedIn}
-              currentUser={currentUser}
-              exitAuth={exitAuth}
-              >
-              </Header>
-              <SearchForm
-              handleSearchNews={searchNewsClick}
-              >
-              </SearchForm>
-            </div>
-            <Preloader
-            isOpen={isEditPreloader}
+        <Route exact path="/">
+          <div className="background">
+            <Header
+            handleEditLoginClick={handleEditLoginClick}
+            handleEditRegisterClick={handleEditRegisterClick}
+            toggleMobileMenu={toggleMobileMenu}
+            isEditOpenMobile={isEditOpenMobile}
+            isEditLoginPopup={isEditLoginPopup}
+            isEditRegisterPopup={isEditRegisterPopup}
+            loggedIn={loggedIn}
+            currentUser={currentUser}
+            exitAuth={exitAuth}
             >
-            </Preloader>
-            <NotFoud
-            isOpen={isEditNotFound}
-            searchError={searchError}
+            </Header>
+            <SearchForm
+            handleSearchNews={searchNewsClick}
             >
-            </NotFoud>
-            <Main
-            articles={articles}
-            >
-            </Main>
-          </Route>
-        ) : (
-
-
-          <ProtectedRoute path="/saved-news"
-          loggedIn={loggedIn}
-          component={SavedNews}
-          handleEditRegisterClick={handleEditRegisterClick}
+            </SearchForm>
+          </div>
+          <Preloader
+          isOpen={isEditPreloader}
           >
-          </ProtectedRoute>
-        )
-        }
-
-
-      {/*  <Route exact path="/saved-news">
-          <Header
-          handleEditLoginClick={handleEditLoginClick}
-          handleEditRegisterClick={handleEditRegisterClick}
-          toggleMobileMenu={toggleMobileMenu}
-          isEditOpenMobile={isEditOpenMobile}
-          isEditLoginPopup={isEditLoginPopup}
-          isEditRegisterPopup={isEditRegisterPopup}
+          </Preloader>
+          <NotFoud
+          isOpen={isEditNotFound}
+          searchError={searchError}
           >
-          </Header>
-          <SavedNewsHeader />
-          <SavedNews />
-      </Route>  */}
-
-
-
+          </NotFoud>
+          <Main
+          articles={articles}
+          updateMyArticles={updateMyArticles}
+          keyword={keyword}
+          >
+          </Main>
+      </Route>
+      <Route path="/saved-news">
+        <Header
+        handleEditLoginClick={handleEditLoginClick}
+        handleEditRegisterClick={handleEditRegisterClick}
+        toggleMobileMenu={toggleMobileMenu}
+        isEditOpenMobile={isEditOpenMobile}
+        isEditLoginPopup={isEditLoginPopup}
+        isEditRegisterPopup={isEditRegisterPopup}
+        loggedIn={loggedIn}
+        currentUser={currentUser}
+        exitAuth={exitAuth}
+        >
+        </Header>
+        <ProtectedRoute path="/saved-news"
+        loggedIn={loggedIn}
+        component={SavedNews}
+        handleEditRegisterClick={handleEditRegisterClick}
+        myArticles={myArticles}
+        deleteArticle={deleteMyArticle}
+        updateMyArticles={updateMyArticles}
+        keyword={keyword}
+        >
+        </ProtectedRoute>
+      </Route>
+      <Route>
+        <Redirect to="/"/>
+      </Route>
       </Switch>
       <Footer
       topScroll={topScroll}
       ></Footer>
 
       <section className="popups">
-
         <Login
         isOpen={isEditLoginPopup}
         onClose={closeAllPopups}
@@ -343,7 +399,6 @@ function App() {
         authorize={entranceLogin}
         >
         </Login>
-
         <Register
         isOpen={isEditRegisterPopup}
         onClose={closeAllPopups}
@@ -356,7 +411,6 @@ function App() {
         registerUser={registerUser}
         >
         </Register>
-
         <EditInfoPopup
         isOpen={isEditInfoPopup}
         onClose={closeAllPopups}

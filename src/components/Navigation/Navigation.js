@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation, NavLink } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import './Navigation.css'
 import exitLogoDark from '../../images/exit-dark.png';
 import exitLogoWhite from '../../images/exit-white.png';
@@ -57,11 +57,10 @@ function Navigation(props) {
         </li>
       </ul>
       <button onClick={props.loggedIn ? props.exitAuth : props.handleEditLoginClick} className={buttonWhite}>{textButton}
-      {props.loggedIn && <img className="navigation__image-exit" src={`${pathname === '/saved-news' ? exitLogoDark : exitLogoWhite} ${props.isEditOpenMobile ? exitLogoWhite : ''}`} alt="Кнопка выхода из личного кабинета"></img>}
+      {props.loggedIn && <img className="navigation__image-exit" src={exitLogoWhite} alt="Кнопка выхода из личного кабинета"></img>}
       </button>
-      <button className={buttonDark}>Грета
+      <button onClick={props.exitAuth} className={buttonDark}>{textButton}
         <img className="navigation__image-exit" src={props.isEditOpenMobile ? exitLogoWhite : exitLogoDark} alt="Кнопка выхода из личного кабинета"></img>
-        <Link className="navigation__link-dark" to="/"></Link>
       </button>
     </nav>
   )
