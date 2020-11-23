@@ -4,9 +4,13 @@ import NewsCard from '../NewsCard/NewsCard.js';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 
 function SavedNews(props) {
+
   return (
     <section className="saved-news">
-      <SavedNewsHeader />
+      <SavedNewsHeader
+      lengthMyArticles={props.lengthMyArticles}
+      >
+      </SavedNewsHeader>
       <div className="saved-news__container">
       <article className="news-card-list__box">
       {
@@ -18,8 +22,8 @@ function SavedNews(props) {
           date={article.date}
           title={article.title}
           text={article.text}
-          source={article.source}
-          keyword={article.keyword}
+          source={article.source.name || article.source}
+          keyword={article.keyword || props.keyword}
           key={key}
           updateMyArticles={props.updateMyArticles}
           />

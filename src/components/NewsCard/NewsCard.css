@@ -79,7 +79,7 @@
   background-image: url(../../images/bookmark-dark.png);
 }
 
-.news-card__button:focus {
+.news-card__button_saved {
   background-image: url(../../images/bookmark-blue.png);
 }
 

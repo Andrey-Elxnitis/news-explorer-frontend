@@ -38,6 +38,7 @@ function App() {
   const [myArticles, setMyArticles] = useState([]);
   const [lengthMyArticles, setLengthMyArticles] = useState(0);
   const [keyword, setKeyword] = useState('');
+  const [activeFlag, setActiveFlag] = useState(false);
 
   // стейт переменная для отображения прелоудера
   const [isEditPreloader, setIsEditPreloader] = useState(false);
@@ -87,6 +88,9 @@ function App() {
 
     // показываем прелоадер
     setIsEditPreloader(true)
+    setArticles([]);
+    setIsEditNotFound(false);
+    setSearchError(false);
 
     searchNews(keyword)
       .then((data) => {
@@ -279,9 +283,15 @@ function App() {
   // сохраняем статью
   function saveArticle(article, keyword) {
     if (loggedIn) {
+
+      console.log(article, keyword);
+
       createArticle(article, keyword)
         .then((data) => {
-          setMyArticles([...myArticles, data.article]);
+          if (data) {
+           // setMyArticles([...myArticles, article]);
+           getMySaveArticles();
+          }
         })
         .catch((err) => {
           console.log(err.message);
@@ -295,6 +305,7 @@ function App() {
       .then((data) => {
         const myArticleArray = myArticles.filter((i) => (i._id !== article._id));
         setMyArticles(myArticleArray);
+        setLengthMyArticles(myArticleArray.length);
       })
       .catch((err) => {
         console.log(err.message);
@@ -303,10 +314,16 @@ function App() {
 
   // определяем какая статья, и либо ее сохраняем, либо удаляем
   function updateMyArticles(article, keyword, myArticle) {
-    console.log(myArticle)
+
     const mySavedArticle = myArticles.find((i) => {
-      console.log(i)
+      if (myArticle) {
       return i.title === myArticle.title && i.text === myArticle.text;
+      }
+
+      if (article) {
+        return i.title === article.title && i.text === article.description;
+      }
+
     });
 
     if (mySavedArticle) {
@@ -350,8 +367,12 @@ function App() {
           </NotFoud>
           <Main
           articles={articles}
+          saveArticles={myArticles}
           updateMyArticles={updateMyArticles}
           keyword={keyword}
+          loggedIn={loggedIn}
+          setActiveFlag={setActiveFlag}
+          activeFlag={activeFlag}
           >
           </Main>
       </Route>
@@ -376,6 +397,7 @@ function App() {
         deleteArticle={deleteMyArticle}
         updateMyArticles={updateMyArticles}
         keyword={keyword}
+        lengthMyArticles={lengthMyArticles}
         >
         </ProtectedRoute>
       </Route>

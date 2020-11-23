@@ -7,8 +7,12 @@ function Main(props) {
     <main className="content">
       <NewsCardList
       articles={props.articles}
+      saveArticles={props.saveArticles}
       updateMyArticles={props.updateMyArticles}
       keyword={props.keyword}
+      loggedIn={props.loggedIn}
+      setActiveFlag={props.setActiveFlag}
+      activeFlag={props.activeFlag}
       >
       </NewsCardList>
       <About />

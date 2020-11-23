@@ -34,6 +34,8 @@ function NewsCardList(props) {
          newsArticles.map((article, key) => (
           <NewsCard
           article={article}
+          articlesNews={props.articles}
+          saveArticles={props.saveArticles}
           image={article.urlToImage}
           link={article.url}
           date={article.publishedAt}
@@ -42,6 +44,10 @@ function NewsCardList(props) {
           source={article.source.name}
           key={key}
           updateMyArticles={props.updateMyArticles}
+          keyword={props.keyword}
+          loggedIn={props.loggedIn}
+          setActiveFlag={props.setActiveFlag}
+          activeFlag={props.activeFlag}
           />
         ))
         }
