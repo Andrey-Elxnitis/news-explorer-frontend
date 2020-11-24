@@ -6,6 +6,7 @@ function SearchForm(props) {
   // стейт переменная отслеживает пустой инпут
   const [keyword, setKeyword] = useState('');
 
+  // стейт переменная для отображения ошибки ввода
   const[inputError, setInputError] = useState(false)
 
   function submitForm(e) {

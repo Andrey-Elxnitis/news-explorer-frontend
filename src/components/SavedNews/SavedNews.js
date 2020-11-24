@@ -5,13 +5,22 @@ import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js';
 
 function SavedNews(props) {
 
+  const savedNewsContainer = `${
+    props.lengthMyArticles > 0
+    ?
+    'saved-news__container'
+    :
+    ''
+  }`;
+
   return (
     <section className="saved-news">
       <SavedNewsHeader
       lengthMyArticles={props.lengthMyArticles}
+      myArticles={props.myArticles}
       >
       </SavedNewsHeader>
-      <div className="saved-news__container">
+      <div className={savedNewsContainer}>
       <article className="news-card-list__box">
       {
          props.myArticles.map((article, key) => (
@@ -26,6 +35,7 @@ function SavedNews(props) {
           keyword={article.keyword || props.keyword}
           key={key}
           updateMyArticles={props.updateMyArticles}
+          loggedIn={props.loggedIn}
           />
         ))
         }

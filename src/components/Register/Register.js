@@ -14,7 +14,7 @@ function Register(props) {
     <PopupWithForm
       name="register"
       title="Регистрация"
-      buttonText="Зарегистрироваться"
+      buttonText={props.isLoading ? 'Загрузка' : 'Зарегистрироваться'}
       isOpen={props.isOpen}
       onClose={props.onClose}
       clickButtonText="Войти"

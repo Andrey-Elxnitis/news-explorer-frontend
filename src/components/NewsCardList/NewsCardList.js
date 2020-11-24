@@ -10,6 +10,7 @@ function NewsCardList(props) {
   // стейт переменная для скрытия кнопки "Показать еще"
   const [activeButton, setActiveButton] = useState(true)
 
+  // изначально в массив для отрисовки добавляем три статьи
   React.useEffect(() => {
     props.articles && setNewsArticles(props.articles.slice(0, 3));
   }, [props.articles]);
@@ -48,6 +49,7 @@ function NewsCardList(props) {
           loggedIn={props.loggedIn}
           setActiveFlag={props.setActiveFlag}
           activeFlag={props.activeFlag}
+          handleEditRegisterClick={props.handleEditRegisterClick}
           />
         ))
         }

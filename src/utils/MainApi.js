@@ -2,7 +2,6 @@ import { URL_API } from './constans.js';
 
 // функция отвечает за отправку запроса на регистрацию пользователя
 export const register = (email, password, name) => {
-  console.log(email)
   return fetch(`${URL_API}/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -103,11 +102,11 @@ export function createArticle(article, keyword) {
     body: JSON.stringify({
       keyword: keyword,
       title,
-      text: description,
+      text: `${description.toString() === "" ? 'К сожалению нет текста' : description}`,
       date: publishedAt,
       source: source.name,
       link: url,
-      image: urlToImage
+      image: urlToImage || 'http://gps-avto.su/userfiles/shop/lgidr/492_gidrozamedlitel-zg10-18.jpg'
     })
   })
     .then((res) => {

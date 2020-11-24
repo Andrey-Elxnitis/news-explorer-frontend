@@ -22,6 +22,7 @@ import {
 } from '../../utils/MainApi.js';
 import { CurrentUserContext } from '../../context/CurrentUserContex.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
+import { topScroll } from '../../utils/urils.js'
 
 // основной компонент приложения
 function App() {
@@ -51,6 +52,9 @@ function App() {
   const [isEditRegisterPopup, setEditRegisterPopup] = useState(false);
   const [isEditInfoPopup, setIsEditInfoPopup] = useState(false);
 
+  // стейт переменная для отображения загрузки
+  const [isLoading, setIsLoading] = useState(false);
+
   // стейт переменные для валидации формы
   const [values, setValues] = useState({});
   const [isValid, setIsValid] = useState(false);
@@ -73,30 +77,40 @@ function App() {
     if (jwt) {
       setLoggedIn(true)
       history.push('/')
-      setCurrenUser(JSON.parse(localStorage.getItem('user')));
       getMySaveArticles();
+      setCurrenUser(JSON.parse(localStorage.getItem('user')));
+      setArticles(JSON.parse(localStorage.getItem('articles')));
     }
   }
 
   // проверяем наличие токена в локальном хранилище
   React.useEffect(() => {
     getToken();
-  },[]);
+  },[loggedIn]);
+
+  // достаем из локального хранилище ключевое слово
+  React.useEffect(() => {
+    setKeyword(localStorage.getItem('keyword'));
+  }, [keyword]);
 
   // функция обрабатывает поиск новостей
   function searchNewsClick(keyword) {
 
     // показываем прелоадер
     setIsEditPreloader(true)
+
     setArticles([]);
+    localStorage.removeItem('articles');
+    localStorage.removeItem('keyword');
     setIsEditNotFound(false);
     setSearchError(false);
 
     searchNews(keyword)
       .then((data) => {
 
-          // записываем статьи в локальное хранилище
+          // записываем статьи и ключевое слово в локальное хранилище
           localStorage.setItem('articles', JSON.stringify(data.articles));
+          localStorage.setItem('keyword', keyword);
 
           // обновляем стейт
           setArticles(data.articles);
@@ -137,6 +151,7 @@ function App() {
 
   // функция открытия попапа входа
   function handleEditLoginClick() {
+    setIsEditInfoPopup(false)
     setEditLoginPopup(true);
     setEditOpenMobile(false);
   }
@@ -205,6 +220,7 @@ function App() {
 
   // функция отвечает за регистрацию пользователя
   function registerUser(email, password, name) {
+    setIsLoading(true);
     register(email, password, name)
       .then((res) => {
         if (res) {
@@ -214,13 +230,17 @@ function App() {
         }
       })
       .catch((err) => {
-        setTextErrorForm(err.message);
+        setTextErrorForm(err);
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   // функция отвечает за авторизацию пользователя
   function entranceLogin(email, password) {
+    setIsLoading(true);
     authorize(email, password)
     .then((res) => {
       localStorage.setItem('jwt', res.token);
@@ -244,6 +264,9 @@ function App() {
     .catch((err) => {
       setError(false)
       console.log(err);
+    })
+    .finally(() => {
+      setIsLoading(false);
     });
   }
 
@@ -251,16 +274,9 @@ function App() {
   function exitAuth() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
+    setArticles([]);
     setLoggedIn(false);
     history.push('/');
-  }
-
-  //функция при нажатии на главную скроллит страницу наверх
-  function topScroll () {
-    if (window.pageYOffset > 0) {
-      window.scrollBy(0, -30);
-      setTimeout(topScroll, 0);
-    }
   }
 
   // запрашиваем сохраненные карточки
@@ -283,9 +299,6 @@ function App() {
   // сохраняем статью
   function saveArticle(article, keyword) {
     if (loggedIn) {
-
-      console.log(article, keyword);
-
       createArticle(article, keyword)
         .then((data) => {
           if (data) {
@@ -347,7 +360,6 @@ function App() {
             isEditLoginPopup={isEditLoginPopup}
             isEditRegisterPopup={isEditRegisterPopup}
             loggedIn={loggedIn}
-            currentUser={currentUser}
             exitAuth={exitAuth}
             >
             </Header>
@@ -373,6 +385,7 @@ function App() {
           loggedIn={loggedIn}
           setActiveFlag={setActiveFlag}
           activeFlag={activeFlag}
+          handleEditRegisterClick={handleEditRegisterClick}
           >
           </Main>
       </Route>
@@ -419,6 +432,7 @@ function App() {
         isValid={isValid}
         handleChange={handleChange}
         authorize={entranceLogin}
+        isLoading={isLoading}
         >
         </Login>
         <Register
@@ -431,11 +445,14 @@ function App() {
         handleChange={handleChange}
         textErrorForm={textErrorForm}
         registerUser={registerUser}
+        isLoading={isLoading}
         >
         </Register>
         <EditInfoPopup
         isOpen={isEditInfoPopup}
         onClose={closeAllPopups}
+        handleEditLoginClick={handleEditLoginClick}
+        isEditLoginPopup={isEditLoginPopup}
         >
         </EditInfoPopup>
       </section>

@@ -14,7 +14,7 @@ function Login(props) {
     <PopupWithForm
       name="login"
       title="Вход"
-      buttonText="Войти"
+      buttonText={props.isLoading ? 'Загрузка' : 'Войти'}
       isOpen={props.isOpen}
       onClose={props.onClose}
       clickButtonText="Зарегистрироваться"

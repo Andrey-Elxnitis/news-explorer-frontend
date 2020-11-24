@@ -13,6 +13,7 @@ function Main(props) {
       loggedIn={props.loggedIn}
       setActiveFlag={props.setActiveFlag}
       activeFlag={props.activeFlag}
+      handleEditRegisterClick={props.handleEditRegisterClick}
       >
       </NewsCardList>
       <About />

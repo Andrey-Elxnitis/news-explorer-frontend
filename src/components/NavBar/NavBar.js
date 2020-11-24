@@ -1,12 +1,15 @@
 import React from 'react'
 import { useLocation, NavLink } from 'react-router-dom';
-import './Navigation.css'
+import './NavBar.css'
 import exitLogoDark from '../../images/exit-dark.png';
 import exitLogoWhite from '../../images/exit-white.png';
+import { CurrentUserContext } from '../../context/CurrentUserContex.js';
 
-function Navigation(props) {
+function NavBar(props) {
 
   const { pathname } = useLocation();
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   // если пользователь открывает сохраненные карточки, то показываем черную кнопку
   const buttonDark = `${
@@ -37,11 +40,12 @@ function Navigation(props) {
     pathname === '/saved-news' ? 'navigation__link_active_dark' : 'navigation__link_active' : ''
   }`;
 
+  // если пользователь авторизован, то показываем имя пользователя
   const textButton = `
   ${
     props.loggedIn
     ?
-    `${props.currentUser.name}`
+    `${currentUser.name}`
     :
     `Авторизоваться`
   }`;
@@ -66,4 +70,4 @@ function Navigation(props) {
   )
 }
 
-export default Navigation;
+export default NavBar;

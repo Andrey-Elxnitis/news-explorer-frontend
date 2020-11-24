@@ -4,6 +4,7 @@ import notFoundImage from '../../images/not-found.png';
 
 function NotFound(props) {
 
+  // взависимости от ошибки подставляем текст
   const subtitleText = `${
     props.searchError
     ?
