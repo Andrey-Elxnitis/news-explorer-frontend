@@ -1,18 +1,27 @@
 import React from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
-import './EditLoginPopup.css';
 
-function EditLoginPopup(props) {
+function Register(props) {
+
+  // функция отправки данных для регистрации пользователя
+  function submitRegister(e) {
+    e.preventDefault();
+    props.registerUser(props.values.email, props.values.password, props.values.name)
+}
+
+
   return (
     <PopupWithForm
-      name="login"
-      title="Вход"
-      buttonText="Войти"
+      name="register"
+      title="Регистрация"
+      buttonText={props.isLoading ? 'Загрузка' : 'Зарегистрироваться'}
       isOpen={props.isOpen}
       onClose={props.onClose}
-      clickButtonText="Зарегистрироваться"
+      clickButtonText="Войти"
       onClickPopup={props.onClickPopup}
       isValid={props.isValid}
+      onsubmit={submitRegister}
+      textErrorForm={props.textErrorForm}
     >
       <fieldset className="popup__inputs">
         <span className="popup__input-title">Email</span>
@@ -30,7 +39,7 @@ function EditLoginPopup(props) {
         >
         </input>
         <span className="popup__input-error">{props.error.email || ''}</span>
-        <span className="popup__input-title popup__input-title_margin">Пароль</span>
+        <span className="popup__input-title">Пароль</span>
         <input
         autoComplete="on"
         className="popup__input"
@@ -38,16 +47,29 @@ function EditLoginPopup(props) {
         placeholder="Введите пароль"
         type="password"
         name="password"
-        minLength="8"
+        minLength="10"
         maxLength="60"
         value={props.values.password || ''}
         onChange={props.handleChange}
         >
         </input>
         <span className="popup__input-error">{props.error.password || ''}</span>
+        <span className="popup__input-title">Имя</span>
+        <input className="popup__input"
+        required
+        placeholder="Введите имя"
+        type="text"
+        name="name"
+        minLength="2"
+        maxLength="30"
+        value={props.values.name || ''}
+        onChange={props.handleChange}
+        >
+        </input>
+        <span className="popup__input-error">{props.error.name || ''}</span>
       </fieldset>
     </PopupWithForm>
   )
 }
 
-export default EditLoginPopup;
+export default Register;

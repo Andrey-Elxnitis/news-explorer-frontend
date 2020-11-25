@@ -44,6 +44,10 @@
   outline: none;
 }
 
+.news-card-list__button_disabled {
+  display: none;
+}
+
 .news-card-list__button:hover {
   background: rgba(255, 255, 255, 0.5);
 }

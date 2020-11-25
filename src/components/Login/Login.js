@@ -1,17 +1,26 @@
 import React from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm.js';
+import './Login.css';
 
-function EditRegisterPopup(props) {
+function Login(props) {
+
+  // функция отправки данных для регистрации пользователя
+  function submitAuthorize(e) {
+    e.preventDefault();
+    props.authorize(props.values.email, props.values.password);
+  }
+
   return (
     <PopupWithForm
-      name="register"
-      title="Регистрация"
-      buttonText="Зарегистрироваться"
+      name="login"
+      title="Вход"
+      buttonText={props.isLoading ? 'Загрузка' : 'Войти'}
       isOpen={props.isOpen}
       onClose={props.onClose}
-      clickButtonText="Войти"
+      clickButtonText="Зарегистрироваться"
       onClickPopup={props.onClickPopup}
       isValid={props.isValid}
+      onsubmit={submitAuthorize}
     >
       <fieldset className="popup__inputs">
         <span className="popup__input-title">Email</span>
@@ -24,12 +33,12 @@ function EditRegisterPopup(props) {
         name="email"
         minLength="2"
         maxLength="60"
-        value={props.values.password || ''}
+        value={props.values.email || ''}
         onChange={props.handleChange}
         >
         </input>
         <span className="popup__input-error">{props.error.email || ''}</span>
-        <span className="popup__input-title">Пароль</span>
+        <span className="popup__input-title popup__input-title_margin">Пароль</span>
         <input
         autoComplete="on"
         className="popup__input"
@@ -37,29 +46,16 @@ function EditRegisterPopup(props) {
         placeholder="Введите пароль"
         type="password"
         name="password"
-        minLength="8"
+        minLength="10"
         maxLength="60"
         value={props.values.password || ''}
         onChange={props.handleChange}
         >
         </input>
         <span className="popup__input-error">{props.error.password || ''}</span>
-        <span className="popup__input-title">Имя</span>
-        <input className="popup__input"
-        required
-        placeholder="Введите имя"
-        type="text"
-        name="name"
-        minLength="2"
-        maxLength="30"
-        value={props.values.name || ''}
-        onChange={props.handleChange}
-        >
-        </input>
-        <span className="popup__input-error">{props.error.name || ''}</span>
       </fieldset>
     </PopupWithForm>
   )
 }
 
-export default EditRegisterPopup;
+export default Login;

@@ -38,6 +38,7 @@
   max-width: 608px;
   background: #fff;
   border-radius: 100px;
+  position: relative;
   display: flex;
 }
 
@@ -54,6 +55,22 @@
   outline: none;
 }
 
+.search__input-error {
+  position: absolute;
+  top: -25px;
+  left: 20px;
+  color: rgb(255, 6, 6);
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  text-rendering: optimizeLegibility;
+  display: none;
+}
+
+.search__input-error_active {
+  display: block;
+}
+
 .search__button {
   width: 168px;
   height: 64px;
@@ -68,6 +85,7 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
+  outline: none;
 }
 
 .search__button:hover {

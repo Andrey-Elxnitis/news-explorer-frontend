@@ -1,12 +1,15 @@
 import React from 'react'
-import { Link, useLocation, NavLink } from 'react-router-dom';
-import './Navigation.css'
+import { useLocation, NavLink } from 'react-router-dom';
+import './NavBar.css'
 import exitLogoDark from '../../images/exit-dark.png';
 import exitLogoWhite from '../../images/exit-white.png';
+import { CurrentUserContext } from '../../context/CurrentUserContex.js';
 
-function Navigation(props) {
+function NavBar(props) {
 
   const { pathname } = useLocation();
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   // если пользователь открывает сохраненные карточки, то показываем черную кнопку
   const buttonDark = `${
@@ -37,6 +40,16 @@ function Navigation(props) {
     pathname === '/saved-news' ? 'navigation__link_active_dark' : 'navigation__link_active' : ''
   }`;
 
+  // если пользователь авторизован, то показываем имя пользователя
+  const textButton = `
+  ${
+    props.loggedIn
+    ?
+    `${currentUser.name}`
+    :
+    `Авторизоваться`
+  }`;
+
   return (
     <nav className={`navigation ${openMobileMenu}`}>
       <ul className="navigation__links">
@@ -44,16 +57,17 @@ function Navigation(props) {
           <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}`} exact to="/">Главная</NavLink>
         </li>
         <li className="navigation__links-list">
-          <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}`} to="/saved-news">Сохраненные статьи</NavLink>
+          <NavLink activeClassName={navigationLinkActive} className={`${props.loggedIn ? `navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}` : 'navigation__link_disable'}`} to="/saved-news">Сохраненные статьи</NavLink>
         </li>
       </ul>
-      <button onClick={props.handleEditLoginClick} className={buttonWhite}>Авторизоваться</button>
-      <button className={buttonDark}>Грета
+      <button onClick={props.loggedIn ? props.exitAuth : props.handleEditLoginClick} className={buttonWhite}>{textButton}
+      {props.loggedIn && <img className="navigation__image-exit" src={exitLogoWhite} alt="Кнопка выхода из личного кабинета"></img>}
+      </button>
+      <button onClick={props.exitAuth} className={buttonDark}>{textButton}
         <img className="navigation__image-exit" src={props.isEditOpenMobile ? exitLogoWhite : exitLogoDark} alt="Кнопка выхода из личного кабинета"></img>
-        <Link className="navigation__link-dark" to="/"></Link>
       </button>
     </nav>
   )
 }
 
-export default Navigation;
+export default NavBar;

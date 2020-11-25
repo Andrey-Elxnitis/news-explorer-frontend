@@ -1,6 +1,6 @@
 import React from 'react';
 import './Header.css'
-import Navigation from '../Navigation/Navigation.js';
+import NavBar from '../NavBar/NavBar.js';
 import { useLocation, Link } from 'react-router-dom';
 
 function Header(props) {
@@ -50,13 +50,16 @@ function Header(props) {
     <header className={`header ${mobileMenuActive} ${boxShadow} ${headerSticking}`}>
       <Link to="/" className={`header__logo ${headerLogoColor}`}>NewsExplorer</Link>
       <button type="button" onClick={props.toggleMobileMenu} className={`header__button-mobile ${buttonMobileMenu} ${buttonMobileMenuHidden}`}></button>
-      <Navigation
+      <NavBar
       handleEditLoginClick={props.handleEditLoginClick}
       isEditOpenMobile={props.isEditOpenMobile}
+      loggedIn={props.loggedIn}
+      exitAuth={props.exitAuth}
       >
-      </Navigation>
+      </NavBar>
     </header>
   )
 }
 
 export default Header;
+
