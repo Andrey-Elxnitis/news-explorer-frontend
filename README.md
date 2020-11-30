@@ -15,6 +15,3 @@
 
 Яндекс облако:
   - https://newsnw.students.nomoreparties.xyz
-
-GitHub Pages:
-  - https://andrey-elxnitis.github.io/news-explorer-frontend/index.html  

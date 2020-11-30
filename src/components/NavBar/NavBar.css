@@ -78,6 +78,10 @@
   cursor: pointer;
   outline: none;
   padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .navigation__button:hover {
@@ -90,7 +94,7 @@
   border: 1px solid #000;
   box-sizing: border-box;
   padding: 12px;
-  width: 112px;
+  width: 176px;
   height: 48px;
   margin-left: 32px;
   align-self: center;
@@ -103,6 +107,19 @@
   line-height: 24px;
   cursor: pointer;
   outline: none;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.navigation__button-text {
+  max-width: 100px;
+  margin: 0;
+  align-self: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .navigation__button-dark:hover {
@@ -116,7 +133,8 @@
 .navigation__image-exit {
   width: 17px;
   height: 16px;
-  margin-left: 10px;
+  padding-left: 10px;
+  align-self: center;
 
 }
 
@@ -220,6 +238,6 @@
   }
 
   .navigation__image-exit {
-    margin-left: 16px;
+    margin-left: 6px;
   }
 }
