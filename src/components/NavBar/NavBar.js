@@ -60,10 +60,12 @@ function NavBar(props) {
           <NavLink activeClassName={navigationLinkActive} className={`${props.loggedIn ? `navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}` : 'navigation__link_disable'}`} to="/saved-news">Сохраненные статьи</NavLink>
         </li>
       </ul>
-      <button onClick={props.loggedIn ? props.exitAuth : props.handleEditLoginClick} className={buttonWhite}>{textButton}
+      <button onClick={props.loggedIn ? props.exitAuth : props.handleEditLoginClick} className={buttonWhite}>
+      <p className="navigation__button-text">{textButton}</p>
       {props.loggedIn && <img className="navigation__image-exit" src={exitLogoWhite} alt="Кнопка выхода из личного кабинета"></img>}
       </button>
-      <button onClick={props.exitAuth} className={buttonDark}>{textButton}
+      <button onClick={props.exitAuth} className={buttonDark}>
+        <p className="navigation__button-text">{textButton}</p>
         <img className="navigation__image-exit" src={props.isEditOpenMobile ? exitLogoWhite : exitLogoDark} alt="Кнопка выхода из личного кабинета"></img>
       </button>
     </nav>
