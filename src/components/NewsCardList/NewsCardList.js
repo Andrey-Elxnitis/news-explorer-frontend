@@ -25,6 +25,8 @@ function NewsCardList(props) {
     }
   }
 
+  console.log(props.articles)
+
   return (
     newsArticles.length > 0
       ?

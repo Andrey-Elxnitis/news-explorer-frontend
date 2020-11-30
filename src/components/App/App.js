@@ -302,7 +302,6 @@ function App() {
       createArticle(article, keyword)
         .then((data) => {
           if (data) {
-           // setMyArticles([...myArticles, article]);
            getMySaveArticles();
           }
         })

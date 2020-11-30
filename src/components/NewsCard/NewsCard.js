@@ -68,6 +68,8 @@ function NewsCard(props) {
 
   const button = `${ pathname === '/saved-news' ? 'news-card__button-delete' : `${loggedIn && activeFlag ? 'news-card__button news-card__button_saved' : 'news-card__button'}`}`;
 
+  console.log(props.image)
+
   return (
     <article className="news-card">
       <p className={keyword}>{props.keyword}</p>
@@ -81,7 +83,7 @@ function NewsCard(props) {
           <button onClick={props.handleEditRegisterClick} className="news-card__button news-card__button_disabled"></button>
         )
       }
-      <img className="news-card__image" src={props.image ? props.image : "https://dom-dekor.ru/images/not-photo.png.webp"} alt={props.title}></img>
+      <img className="news-card__image" src={props.image ? props.image : "https://dom-dekor.ru/images/not-photo.png.webp"} alt={props.title} onError={(e) => { e.target.src = "https://dom-dekor.ru/images/not-photo.png.webp"; }}></img>
       <a className="news-card__link" href={props.link} target="_blank" rel="noreferrer">
       <p className="news-card__date">{newDate(props.date)}</p>
       <h2 className="news-card__title">{props.title}</h2>
