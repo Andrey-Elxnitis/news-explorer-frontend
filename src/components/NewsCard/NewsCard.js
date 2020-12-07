@@ -48,7 +48,7 @@ function NewsCard(props) {
     return newDate;
   }
 
-  // удаляем или сохоаняем статью
+  // удаляем или сохраняем статью
   function buttonClick() {
     props.updateMyArticles(props.article, props.keyword, props.myArticle);
   }
@@ -67,8 +67,6 @@ function NewsCard(props) {
   }, [saveArticles, props.title, activeFlag, loggedIn])
 
   const button = `${ pathname === '/saved-news' ? 'news-card__button-delete' : `${loggedIn && activeFlag ? 'news-card__button news-card__button_saved' : 'news-card__button'}`}`;
-
-  console.log(props.image)
 
   return (
     <article className="news-card">
