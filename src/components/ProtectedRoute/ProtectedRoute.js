@@ -3,25 +3,16 @@ import { Route, Redirect } from 'react-router-dom';
 
 const ProtectedRoute = ({ component: Component, ...props }) => {
 
-  // если пользователь не залогинился, то защищаем роут "/saved-news"
-  function gettoken() {
-    if (localStorage.getItem('jwt')) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   React.useEffect(() => {
-    if (!gettoken()) {
+    if (!props.loggedIn) {
       props.handleEditRegisterClick();
     }
-  })
+  }, []);
 
     return (
         <Route>
             {
-                () => gettoken() ? <Component {...props} /> : <Redirect to="/" />
+              () => ( props.loggedIn === true ? (<Component {...props} />) : (<Redirect to="/" />))
             }
         </Route>
     )

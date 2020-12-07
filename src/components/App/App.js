@@ -67,7 +67,10 @@ function App() {
   const [textErrorForm, setTextErrorForm] = useState('');
 
   // состояние пользователя авторизации
-  const [loggedIn, setLoggedIn] = React.useState(false);
+ // const [loggedIn, setLoggedIn] = React.useState(false);
+
+  // состояние пользователя авторизации
+  const [loggedIn, setLoggedIn] = React.useState(localStorage.isLoggedIn === 'true');
 
   // функция проверки токена
   function getToken() {
@@ -75,8 +78,9 @@ function App() {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
-      setLoggedIn(true)
-      history.push('/')
+      setLoggedIn(true);
+      localStorage.setItem('isLoggedIn', true);
+      history.push('/');
       getMySaveArticles();
       setCurrenUser(JSON.parse(localStorage.getItem('user')));
       setArticles(JSON.parse(localStorage.getItem('articles')));
@@ -276,6 +280,7 @@ function App() {
     localStorage.removeItem('user');
     setArticles([]);
     setLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
     history.push('/');
   }
 
@@ -313,6 +318,7 @@ function App() {
 
   // удаляем статью
   function deleteMyArticle(article) {
+    console.log(article)
     deleteArticle(article)
       .then((data) => {
         const myArticleArray = myArticles.filter((i) => (i._id !== article._id));
@@ -328,15 +334,17 @@ function App() {
   function updateMyArticles(article, keyword, myArticle) {
 
     const mySavedArticle = myArticles.find((i) => {
+
       if (myArticle) {
       return i.title === myArticle.title && i.text === myArticle.text;
       }
-
       if (article) {
         return i.title === article.title && i.text === article.description;
       }
 
     });
+
+    console.log(mySavedArticle)
 
     if (mySavedArticle) {
       deleteMyArticle(mySavedArticle);
@@ -349,6 +357,31 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
       <Switch>
+      <Route path="/saved-news">
+        <Header
+        handleEditLoginClick={handleEditLoginClick}
+        handleEditRegisterClick={handleEditRegisterClick}
+        toggleMobileMenu={toggleMobileMenu}
+        isEditOpenMobile={isEditOpenMobile}
+        isEditLoginPopup={isEditLoginPopup}
+        isEditRegisterPopup={isEditRegisterPopup}
+        loggedIn={loggedIn}
+        currentUser={currentUser}
+        exitAuth={exitAuth}
+        >
+        </Header>
+        <ProtectedRoute path="/saved-news"
+        loggedIn={loggedIn}
+        component={SavedNews}
+        handleEditRegisterClick={handleEditRegisterClick}
+        myArticles={myArticles}
+        deleteArticle={deleteMyArticle}
+        updateMyArticles={updateMyArticles}
+        keyword={keyword}
+        lengthMyArticles={lengthMyArticles}
+        >
+        </ProtectedRoute>
+      </Route>
         <Route exact path="/">
           <div className="background">
             <Header
@@ -388,6 +421,8 @@ function App() {
           >
           </Main>
       </Route>
+
+{/*
       <Route path="/saved-news">
         <Header
         handleEditLoginClick={handleEditLoginClick}
@@ -412,10 +447,7 @@ function App() {
         lengthMyArticles={lengthMyArticles}
         >
         </ProtectedRoute>
-      </Route>
-      <Route>
-        <Redirect to="/"/>
-      </Route>
+      </Route>   */}
       </Switch>
       <Footer
       topScroll={topScroll}
