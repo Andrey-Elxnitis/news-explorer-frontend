@@ -57,7 +57,7 @@ function NavBar(props) {
           <NavLink activeClassName={navigationLinkActive} className={`navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}`} exact to="/">Главная</NavLink>
         </li>
         <li className="navigation__links-list">
-          <NavLink activeClassName={navigationLinkActive} className={`${props.loggedIn ? `navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}` : 'navigation__link_disable'}`} to="/saved-news">Сохраненные статьи</NavLink>
+          <NavLink activeClassName={navigationLinkActive} className={`${props.loggedIn ? `navigation__link ${navigationLinkDark} ${colorLinkOpenMobile}` : 'navigation__link_disable'}`} to="/saved-news">Сохранённые статьи</NavLink>
         </li>
       </ul>
       <button onClick={props.loggedIn ? props.exitAuth : props.handleEditLoginClick} className={buttonWhite}>

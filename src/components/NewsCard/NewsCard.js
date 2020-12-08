@@ -66,7 +66,7 @@ function NewsCard(props) {
   }
   }, [saveArticles, props.title, activeFlag, loggedIn])
 
-  const button = `${ pathname === '/saved-news' ? 'news-card__button-delete' : `${loggedIn && activeFlag ? 'news-card__button news-card__button_saved' : 'news-card__button'}`}`;
+  const button = `${ pathname === '/saved-news' ? 'news-card__button-delete' : `${loggedIn && activeFlag ? 'news-card__button news-card__button_saved' : 'news-card__button news-card__button_no-saved'}`}`;
 
   return (
     <article className="news-card">
