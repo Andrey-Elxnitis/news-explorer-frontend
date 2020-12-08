@@ -67,9 +67,6 @@ function App() {
   const [textErrorForm, setTextErrorForm] = useState('');
 
   // состояние пользователя авторизации
- // const [loggedIn, setLoggedIn] = React.useState(false);
-
-  // состояние пользователя авторизации
   const [loggedIn, setLoggedIn] = React.useState(localStorage.isLoggedIn === 'true');
 
   // функция проверки токена
@@ -80,7 +77,6 @@ function App() {
     if (jwt) {
       setLoggedIn(true);
       localStorage.setItem('isLoggedIn', true);
-      history.push('/');
       getMySaveArticles();
       setCurrenUser(JSON.parse(localStorage.getItem('user')));
       setArticles(JSON.parse(localStorage.getItem('articles')));
@@ -357,31 +353,6 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
       <Switch>
-      <Route path="/saved-news">
-        <Header
-        handleEditLoginClick={handleEditLoginClick}
-        handleEditRegisterClick={handleEditRegisterClick}
-        toggleMobileMenu={toggleMobileMenu}
-        isEditOpenMobile={isEditOpenMobile}
-        isEditLoginPopup={isEditLoginPopup}
-        isEditRegisterPopup={isEditRegisterPopup}
-        loggedIn={loggedIn}
-        currentUser={currentUser}
-        exitAuth={exitAuth}
-        >
-        </Header>
-        <ProtectedRoute path="/saved-news"
-        loggedIn={loggedIn}
-        component={SavedNews}
-        handleEditRegisterClick={handleEditRegisterClick}
-        myArticles={myArticles}
-        deleteArticle={deleteMyArticle}
-        updateMyArticles={updateMyArticles}
-        keyword={keyword}
-        lengthMyArticles={lengthMyArticles}
-        >
-        </ProtectedRoute>
-      </Route>
         <Route exact path="/">
           <div className="background">
             <Header
@@ -421,8 +392,6 @@ function App() {
           >
           </Main>
       </Route>
-
-{/*
       <Route path="/saved-news">
         <Header
         handleEditLoginClick={handleEditLoginClick}
@@ -447,7 +416,7 @@ function App() {
         lengthMyArticles={lengthMyArticles}
         >
         </ProtectedRoute>
-      </Route>   */}
+      </Route>
       </Switch>
       <Footer
       topScroll={topScroll}
