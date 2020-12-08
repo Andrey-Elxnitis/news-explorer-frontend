@@ -13,13 +13,13 @@ function SavedNewsHeader(props) {
   function textSaveArticles(number) {
 
     if (number >= 5 || number === 0)
-      return 'сохраненных статей';
+      return 'сохранённых статей';
 
     if (number > 1 && number < 5)
-      return 'сохраненные статьи';
+      return 'сохранённые статьи';
 
     if (number === 1)
-      return 'сохраненная статья';
+      return 'сохранённая статья';
   }
 
 
@@ -52,7 +52,7 @@ function SavedNewsHeader(props) {
   return (
     <section className="saved-news-header">
       <div className="saved-news-header__box">
-        <p className="saved-news-header__subtitle">Сохраненные статьи</p>
+        <p className="saved-news-header__subtitle">Сохранённые статьи</p>
         <h3 className="saved-news-header__title">{currentUser.name}, у вас {props.lengthMyArticles} {textSaveArticles(props.lengthMyArticles)}</h3>
         {
           kewords.length <= 3

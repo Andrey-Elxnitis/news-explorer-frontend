@@ -54,7 +54,7 @@ function NewsCardList(props) {
         ))
         }
       </div>
-      <button onClick={addArticle} className={`news-card-list__button ${activeButton ? '' : 'news-card-list__button_disabled'}`}>Показать еще</button>
+      <button onClick={addArticle} className={`news-card-list__button ${activeButton ? '' : 'news-card-list__button_disabled'}`}>Показать ещё</button>
       </section>
       : ''
   )
