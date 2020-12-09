@@ -41,3 +41,7 @@
   color: #b6bcbf;
   margin: 16px auto 80px auto;
 }
+
+.not-found__subtitle-error {
+  color: red;
+}
