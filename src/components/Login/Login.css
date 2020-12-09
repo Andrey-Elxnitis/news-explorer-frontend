@@ -35,11 +35,11 @@
   color: #000;
 }
 
-.popup__input:focus {
-  outline: 1px solid blue;
+.popup__input:hover {
+  outline: 1px solid gray;
 }
 
-.popup__input:hover {
+.popup__input:focus {
   outline: 1px solid blue;
 }
 

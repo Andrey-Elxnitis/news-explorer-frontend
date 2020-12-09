@@ -15,9 +15,9 @@ function NewsCard(props) {
   const [activeFlag, setActiveFlag] = useState(false);
 
   // если вкладка сохраненные статьи, отображаем ключевое слово на статье
-  const keyword = `${
+  const keywordBox = `${
     pathname === '/saved-news'
-    ? 'news-card__keyword news-card__keyword_active' : 'news-card__keyword'
+    ? 'news-card__keyword-box news-card__keyword-box_active' : 'news-card__keyword-box'
   }`;
 
   // функция изменения формата даты
@@ -70,7 +70,9 @@ function NewsCard(props) {
 
   return (
     <article className="news-card">
-      <p className={keyword}>{props.keyword}</p>
+      <div className={keywordBox}>
+      <p className="news-card__keyword">{props.keyword}</p>
+      </div>
       {
         loggedIn ?
         (

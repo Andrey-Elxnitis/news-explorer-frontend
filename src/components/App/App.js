@@ -142,6 +142,7 @@ function App() {
     setValues({});
     setIsValid(false);
     setError({});
+    setTextErrorForm('')
   }
 
   // функция открытия мобильного меню
@@ -274,6 +275,8 @@ function App() {
   function exitAuth() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
+    localStorage.removeItem('articles');
+    localStorage.removeItem('keyword');
     setArticles([]);
     setLoggedIn(false);
     localStorage.removeItem('isLoggedIn');
@@ -299,8 +302,12 @@ function App() {
 
   // сохраняем статью
   function saveArticle(article, keyword) {
+
+    // вск ключевые слова переводим в нижний регистр
+    const newKeyword = keyword.toLowerCase();
+
     if (loggedIn) {
-      createArticle(article, keyword)
+      createArticle(article, newKeyword)
         .then((data) => {
           if (data) {
            getMySaveArticles();
@@ -314,7 +321,6 @@ function App() {
 
   // удаляем статью
   function deleteMyArticle(article) {
-    console.log(article)
     deleteArticle(article)
       .then((data) => {
         const myArticleArray = myArticles.filter((i) => (i._id !== article._id));

@@ -32,7 +32,7 @@ function NewsCardList(props) {
       <h2 className="news-card-list__title">Результаты поиска</h2>
       <div className="news-card-list__box">
          {
-         newsArticles.map((article, key) => (
+         newsArticles.map((article, index) => (
           <NewsCard
           article={article}
           articlesNews={props.articles}
@@ -43,7 +43,7 @@ function NewsCardList(props) {
           title={article.title}
           text={article.description}
           source={article.source.name}
-          key={key}
+          key={'' + article.url + index}
           updateMyArticles={props.updateMyArticles}
           keyword={props.keyword}
           loggedIn={props.loggedIn}
@@ -54,7 +54,7 @@ function NewsCardList(props) {
         ))
         }
       </div>
-      <button onClick={addArticle} className={`news-card-list__button ${activeButton ? '' : 'news-card-list__button_disabled'}`}>Показать ещё</button>
+      {props.articles.length > 3 && <button onClick={addArticle} className={`news-card-list__button ${activeButton ? '' : 'news-card-list__button_disabled'}`}>Показать ещё</button>}
       </section>
       : ''
   )
