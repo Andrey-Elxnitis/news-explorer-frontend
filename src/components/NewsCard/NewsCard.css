@@ -114,7 +114,7 @@
 }
 
 .news-card__button-delete:hover::before {
-  content: 'Удалить из сохраненных';
+  content: 'Удалить из сохранённых';
   width: 182px;
   height: 40px;
   display: flex;
