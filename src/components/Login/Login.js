@@ -21,6 +21,7 @@ function Login(props) {
       onClickPopup={props.onClickPopup}
       isValid={props.isValid}
       onsubmit={submitAuthorize}
+      textErrorForm={props.textErrorForm}
     >
       <fieldset className="popup__inputs">
         <span className="popup__input-title">Email</span>

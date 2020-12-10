@@ -8,13 +8,15 @@ export const register = (email, password, name) => {
       body: JSON.stringify({ email, password, name })
   })
     .then((res) => {
-        if (res.ok) {
-            return res.json();
-        }
-        else {
-            return Promise.reject(`Произошла ошибка: ${res.status}`);
-        }
-    });
+      if (res.status === 409) {
+        return Promise.reject('Пользователь с таким email уже зарегистрирован');
+      }
+      if (!res.ok) {
+        return Promise.reject(`Вам отказано в регистрации, произошла ошибка: ${res.status}`);
+      } else if (res.ok) {
+        return res.json();
+      }
+    })
 };
 
 // функция отвечает за авторизацию пользователя
@@ -31,6 +33,9 @@ export const authorize = (email, password) => {
       if (res.ok) {
           return res.json();
       }
+      if (res.status === 401) {
+        throw new Error('Неправильные email или password');
+      }
       else {
           return Promise.reject(`Произошла ошибка: ${res.status}`);
       }
@@ -38,9 +43,6 @@ export const authorize = (email, password) => {
   .then((data) => {
       localStorage.setItem('jwt', data.token);
       return data;
-  })
-  .catch((err) => {
-      console.log(err.message);
   })
 };
 

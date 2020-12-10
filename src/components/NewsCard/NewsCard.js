@@ -56,7 +56,7 @@ function NewsCard(props) {
   // при сохранении статьи красим иконку в синий цвет
   React.useEffect(() => {
 
-    if(loggedIn === true) {
+    if(loggedIn) {
 
     if (saveArticles) {
       setActiveFlag(

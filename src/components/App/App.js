@@ -244,9 +244,11 @@ function App() {
     setIsLoading(true);
     authorize(email, password)
     .then((res) => {
+
       localStorage.setItem('jwt', res.token);
 
       if (res) {
+
         getInfo(res.token)
           .then((data) => {
             // записываем данные пользователя в локальное ранилищех
@@ -265,6 +267,7 @@ function App() {
     .catch((err) => {
       setError(false)
       console.log(err);
+      setTextErrorForm(err.message)
     })
     .finally(() => {
       setIsLoading(false);
@@ -345,8 +348,6 @@ function App() {
       }
 
     });
-
-    console.log(mySavedArticle)
 
     if (mySavedArticle) {
       deleteMyArticle(mySavedArticle);
@@ -439,6 +440,7 @@ function App() {
         handleChange={handleChange}
         authorize={entranceLogin}
         isLoading={isLoading}
+        textErrorForm={textErrorForm}
         >
         </Login>
         <Register
