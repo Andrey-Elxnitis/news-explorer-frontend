@@ -48,6 +48,8 @@ function NewsCard(props) {
     return newDate;
   }
 
+  console.log(saveArticles)
+
   // удаляем или сохраняем статью
   function buttonClick() {
     props.updateMyArticles(props.article, props.keyword, props.myArticle);

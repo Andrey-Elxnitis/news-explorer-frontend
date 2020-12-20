@@ -24,6 +24,7 @@
 .popup__input {
   width: 358px;
   border: none;
+  box-shadow: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 3px;
   padding-left: 0;
