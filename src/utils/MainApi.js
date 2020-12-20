@@ -79,9 +79,12 @@ export function getMyArticles() {
       'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
   })
-    .then((res) => {
+  .then((res) => {
+    if (res.ok) {
       return res.json();
-    })
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
 }
 
 // сохраняем статью в бд

@@ -41,6 +41,8 @@ function App() {
   const [keyword, setKeyword] = useState('');
   const [activeFlag, setActiveFlag] = useState(false);
 
+  console.log(myArticles)
+
   // стейт переменная для отображения прелоудера
   const [isEditPreloader, setIsEditPreloader] = useState(false);
 
